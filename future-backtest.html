@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Future Backtest — Gold Forecasting Model</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- HEADER (same on every page) -->
+  <header class="site-header">
+    <nav class="navbar" aria-label="Primary navigation">
+      <div class="nav-left">
+        <div class="coin-static" aria-hidden="true"></div>
+        <div class="brand-title">Gold Forecasting Model</div>
+      </div>
+
+      <div class="nav-links">
+        <a class="nav-link" href="index.html">Index</a>
+        <a class="nav-link" href="methodology.html">Methodology</a>
+        <a class="nav-link" href="excel-model.html">Excel Model</a>
+        <a class="nav-link" href="past-backtest.html">Past Backtest</a>
+        <a class="nav-link active" href="future-backtest.html">Future Backtest</a>
+        <a class="nav-link" href="factors-drivers.html">Factors &amp; Drivers</a>
+        <a class="nav-link" href="ai-log.html">Log</a>
+      </div>
+    </nav>
+
+    <div class="progress-wrap" aria-hidden="true">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- =========================
+         CONTAINER 1 — EXPLANATION + FORMULAS
+         ========================= -->
+    <section class="hero" aria-label="Future Backtest Explanation">
+             <!-- ✅ background image = images/Sheet Forecast_Backtest_10Y.webp -->
+<div class="hero-bg" aria-hidden="true"
+     style='background-image: var(--hero-overlay), url("images/Sheet%20Forecast_Backtest_10Y.webp");'></div>
+
+      <article class="hero-card wide">
+        <h1 class="hero-title">Future Backtest</h1>
+        <p class="hero-subtitle">
+          This “future” validation checks how the model performs when applied forward across the later portion of the timeline.
+          The objective is decision usefulness (direction + regime detection) rather than perfect point-level matching.
+        </p>
+
+        <div class="hero-meta" style="text-align:left; max-width: 920px;">
+          <p><strong>Core Regression (Z-score):</strong></p>
+
+          <div class="formula-box">
+            <div class="formula-text">
+              Gold_Return_Z = β₀
+              <br/>+ β₁ · US_Import_Return_Z
+              <br/>+ β₂ · USD_Return_Z
+              <br/>+ β₃ · Real_Rate_Z
+              <br/>+ β₄ · GPR_Index_Z
+              <br/>+ β₅ · CB_BRICS_Share_Change_Z
+            </div>
+          </div>
+
+          <p style="margin-top: 1rem;"><strong>Convert predicted return to a price path:</strong></p>
+          <div class="formula-box">
+            <div class="formula-text">
+              Predicted_Price<sub>t</sub> = Predicted_Price<sub>t−1</sub> × (1 + Predicted_Return<sub>t</sub>)
+            </div>
+          </div>
+      </article>
+
+      <!-- bottom navigation row -->
+      <div class="floating-nav" aria-label="Page navigation">
+        <a class="floating-prev" href="past-backtest.html" aria-label="Back to Past Backtest">← Past Backtest</a>
+        <a class="floating-next" href="factors-drivers.html" aria-label="Next to Factors &amp; Drivers">Factors &amp; Drivers →</a>
+      </div>
+    </section>
+
+    <!-- =========================
+         CONTAINER 2 — TABLEAU (FUTURE)
+         ========================= -->
+    <section class="hero" aria-label="Tableau Future Backtest (Live)">
+              <!-- ✅ background image = images/Tablue.png -->
+<div class="hero-bg" aria-hidden="true"
+     style='background-image: var(--hero-overlay), url("images/Tablue.png");'></div>
+
+      <article class="hero-card wide">
+        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">
+          Tableau — Future Backtest (Live)
+        </h2>
+        <p class="hero-subtitle">Live dashboard view for the Future Backtest only.</p>
+
+        <!-- Tableau embed (provided by you) -->
+        <div class="tableau-embed">
+          <div class='tableauPlaceholder' id='viz1765623839296' style='position: relative'>
+            <noscript>
+              <a href='#'>
+                <img alt='Backtest - Future '
+                     src='https://public.tableau.com/static/images/Go/GoldForecastingModel/Backtest-Future/1_rss.png'
+                     style='border: none' />
+              </a>
+            </noscript>
+            <object class='tableauViz' style='display:none;'>
+              <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+              <param name='embed_code_version' value='3' />
+              <param name='site_root' value='' />
+              <param name='name' value='GoldForecastingModel&#47;Backtest-Future' />
+              <param name='tabs' value='no' />
+              <param name='toolbar' value='yes' />
+              <param name='static_image' value='https://public.tableau.com/static/images/Go/GoldForecastingModel/Backtest-Future/1.png' />
+              <param name='animate_transition' value='yes' />
+              <param name='display_static_image' value='yes' />
+              <param name='display_spinner' value='yes' />
+              <param name='display_overlay' value='yes' />
+              <param name='display_count' value='yes' />
+              <param name='language' value='en-US' />
+              <param name='filter' value='publish=yes' />
+            </object>
+          </div>
+
+          <script type='text/javascript'>
+            var divElement = document.getElementById('viz1765623839296');
+            var vizElement = divElement.getElementsByTagName('object')[0];
+            vizElement.style.width = '100%';
+            vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
+            var scriptElement = document.createElement('script');
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);
+          </script>
+        </div>
+      </article>
+
+      <div class="floating-nav" aria-label="Page navigation">
+        <a class="floating-prev" href="past-backtest.html" aria-label="Back to Past Backtest">← Past Backtest</a>
+        <a class="floating-next" href="factors-drivers.html" aria-label="Next to Factors &amp; Drivers">Factors &amp; Drivers →</a>
+      </div>
+    </section>
+
+    <!-- =========================
+         CONTAINER 3 — ANALYSIS (FROM EXCEL SHEET)
+         ========================= -->
+    <section class="hero" aria-label="Future Backtest Analysis">
+        <!-- ✅ background image = images/Analysis.jpg -->
+<div class="hero-bg" aria-hidden="true"
+     style='background-image: var(--hero-overlay), url("images/Analysis.jpg");'></div>
+
+      <article class="hero-card wide">
+        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">
+          Analysis &amp; Interpretation
+        </h2>
+
+        <!-- Symmetric, compact metrics block -->
+        <div style="max-width: 920px; margin: 0 auto; text-align:left;">
+          <div style="
+            display:grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 14px;
+          ">
+            <div style="
+              background: rgba(255,255,255,0.60);
+              border: 1px solid rgba(148,163,184,0.35);
+              border-radius: 18px;
+              padding: 14px 14px;
+              box-shadow: 0 10px 24px rgba(15,23,42,0.10);
+              text-align:center;
+            ">
+              <div style="font-weight:800; color: var(--ink-900);">MAD</div>
+              <div style="font-size:0.92rem; color: var(--ink-700); margin-top:4px;">average(|A − F|)</div>
+              <div style="font-size:1.35rem; font-weight:900; margin-top:8px;">218.38</div>
+            </div>
+
+            <div style="
+              background: rgba(255,255,255,0.60);
+              border: 1px solid rgba(148,163,184,0.35);
+              border-radius: 18px;
+              padding: 14px 14px;
+              box-shadow: 0 10px 24px rgba(15,23,42,0.10);
+              text-align:center;
+            ">
+              <div style="font-weight:800; color: var(--ink-900);">MSE</div>
+              <div style="font-size:0.92rem; color: var(--ink-700); margin-top:4px;">average((A − F)²)</div>
+              <div style="font-size:1.35rem; font-weight:900; margin-top:8px;">57,343.92</div>
+            </div>
+
+            <div style="
+              background: rgba(255,255,255,0.60);
+              border: 1px solid rgba(148,163,184,0.35);
+              border-radius: 18px;
+              padding: 14px 14px;
+              box-shadow: 0 10px 24px rgba(15,23,42,0.10);
+              text-align:center;
+            ">
+              <div style="font-weight:800; color: var(--ink-900);">MAPE</div>
+              <div style="font-size:0.92rem; color: var(--ink-700); margin-top:4px;">average(|(A − F)/A|) × 100%</div>
+              <div style="font-size:1.35rem; font-weight:900; margin-top:8px;">16.88%</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 16px; color: var(--ink-800); line-height: 1.6;">
+            <p style="margin: 0.2rem 0;">
+              <strong>What these numbers mean:</strong> On the Future Backtest window, the model’s average absolute price error is
+              <strong>~$218</strong> (MAD), with an average percentage error of <strong>~16.9%</strong> (MAPE).
+              The <strong>MSE</strong> is larger because it squares errors (penalizes big misses more).
+            </p>
+            <p style="margin: 0.2rem 0;">
+              <strong>Interpretation for SCM use:</strong> This error level is acceptable if the model correctly captures
+              broad regimes (rising vs falling cycles) and supports timing decisions (hedging triggers / procurement windows),
+              but it will naturally struggle during structural breaks and fast-moving shocks.
+            </p>
+            <p style="margin: 0.2rem 0; color: var(--ink-700);">
+              (Metrics computed directly from the Excel sheet’s Actual (Gold_Price_USD) vs Model_Price_Path.)
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <div class="floating-nav" aria-label="Page navigation">
+        <a class="floating-prev" href="past-backtest.html" aria-label="Back to Past Backtest">← Past Backtest</a>
+        <a class="floating-next" href="factors-drivers.html" aria-label="Next to Factors &amp; Drivers">Factors &amp; Drivers →</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER (same on every page) -->
+  <section class="footer-band" aria-label="Footer band">
+    <footer class="site-footer">
+      <div class="footer-left">
+        <img class="footer-nyit" src="images/nyit.png" alt="NYIT Logo" />
+      </div>
+
+      <div class="footer-center">
+        © 2025 Gold Forecasting Model • NYIT • Supply Chain Management
+      </div>
+
+      <div class="footer-right">
+        Contact:
+        <a href="mailto:prathe01@nyit.edu">prathe01@nyit.edu</a>
+      </div>
+    </footer>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>

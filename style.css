@@ -1,0 +1,792 @@
+/* =========================================================
+   GOLD FORECASTING MODEL — UNIVERSAL STYLE
+   Built to match your sketch:
+   - Fixed navbar + progress bar
+   - Hero background + glass center card
+   - Static gold coin icon (PNG)
+   - Floating next button
+   - Wave footer band + NYIT logo + contact
+   ========================================================= */
+
+/* --------------------------
+   0) Base / Variables
+-------------------------- */
+:root{
+  --nav-h: 78px;
+  --maxw: 1100px;
+
+  --ink-900:#0f172a;
+  --ink-800:#1e293b;
+  --ink-700:#334155;
+  --ink-600:#475569;
+
+  --white: #ffffff;
+
+  /* Brand-ish palette */
+  --gold-1:#ffe9a9;
+  --gold-2:#f6c341;
+  --gold-3:#f59e0b;
+  --gold-4:#b45309;
+
+  --blue-1:#0b1f4a;
+  --blue-2:#1e40af;
+  --sky:#38bdf8;
+
+  /* Glass */
+  --glass: rgba(255,255,255,0.78);
+  --glass-strong: rgba(255,255,255,0.88);
+  --glass-border: rgba(255,255,255,0.55);
+  --shadow-lg: 0 22px 70px rgba(15,23,42,0.25);
+  --shadow-md: 0 14px 40px rgba(15,23,42,0.18);
+  --shadow-sm: 0 10px 24px rgba(15,23,42,0.14);
+
+  /* Hero background (you can swap image file later) */
+  --hero-img: none;
+  --hero-overlay: linear-gradient(120deg, rgba(2,6,23,.78), rgba(2,132,199,.12));
+  --bg-grad: radial-gradient(circle at top left, #e0f2fe 0%, #fef9c3 40%, #f5f3ff 90%);
+}
+
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color: var(--ink-800);
+  background: var(--bg-grad);
+  min-height: 100vh;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+:focus-visible{
+  outline: 3px dashed var(--blue-2);
+  outline-offset: 3px;
+}
+
+/* --------------------------
+   1) Header / Navbar
+-------------------------- */
+.site-header{
+  position: fixed;
+  top:0; left:0; right:0;
+  z-index: 1000;
+}
+
+.navbar{
+  height: var(--nav-h);
+  padding: 0 2.6rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  background: rgba(255,255,255,0.86);
+  border-bottom: 1px solid rgba(148,163,184,0.35);
+  backdrop-filter: blur(14px);
+  transition: box-shadow 180ms ease, background 180ms ease;
+}
+
+.navbar.scrolled{
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 6px 18px rgba(15,23,42,0.10);
+}
+
+.nav-left{
+  display:flex;
+  align-items:center;
+  gap: 0.9rem;
+}
+
+.brand-title{
+  font-weight: 750;
+  letter-spacing: 0.01em;
+  font-size: 1.06rem;
+  color: var(--ink-900);
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap: 1.55rem;
+  flex-wrap: wrap;
+  justify-content:center;
+}
+
+.nav-link{
+  font-weight: 650;
+  font-size: 0.98rem;
+  color: var(--ink-700);
+  padding-bottom: 0.25rem;
+  position: relative;
+}
+
+.nav-link::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:-7px;
+  height: 2px;
+  width:0%;
+  margin:auto;
+  background: linear-gradient(90deg, var(--blue-2), var(--gold-3));
+  transition: width 170ms ease;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after{
+  width:100%;
+}
+
+.nav-link.active{
+  color: var(--blue-2);
+}
+.nav-link.active::after{
+  width:100%;
+}
+
+/* --------------------------
+   2) Progress bar (under nav)
+-------------------------- */
+.progress-wrap{
+  height: 4px;
+  width: 100%;
+  background: rgba(15,23,42,0.06);
+}
+.progress-bar{
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold-3), var(--sky));
+  transition: width 90ms linear;
+}
+
+/* --------------------------
+   3) Main layout
+-------------------------- */
+.main{
+  padding-top: calc(var(--nav-h) + 4px);
+  padding-bottom: 0; /* ✅ remove the extra blank space */
+}
+
+/* --------------------------
+   4) Hero section
+-------------------------- */
+.hero{
+  position: relative;
+  min-height: calc(100vh - (var(--nav-h) + 4px));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 3rem 1.5rem;
+  overflow:hidden;
+}
+
+.hero-bg{
+  position:absolute;
+  inset:0;
+  background-image: var(--hero-overlay), var(--hero-img);
+  background-size: cover;
+  background-position: center right;
+  background-attachment: fixed;
+  transform: scale(1.02);
+  z-index: 0;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 30% 20%, rgba(250,204,21,0.18), transparent 55%),
+              radial-gradient(circle at 70% 75%, rgba(56,189,248,0.14), transparent 55%);
+  z-index: 1;
+  pointer-events:none;
+}
+
+.hero-card{
+  position: relative;
+  z-index: 2;
+
+  width: min(720px, 90vw);
+
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(18px);
+
+  border-radius: 26px;
+  box-shadow: var(--shadow-lg);
+
+  padding: 1.6rem 2rem;
+  text-align: center;
+
+  max-height: 78vh;
+  overflow-y: auto;
+
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+/* Wider cards for content pages (Methodology, Excel Model, etc.) */
+.hero-card.wide{
+  width: min(var(--maxw), 94vw);
+  max-height: 80vh;
+}
+
+/* Wider cards for content-heavy pages (Methodology, etc.) */
+.hero-card.wide{
+  width: min(1100px, 94vw);
+}
+
+.hero-card::-webkit-scrollbar{ width: 7px; }
+.hero-card::-webkit-scrollbar-thumb{
+  background: rgba(15,23,42,0.22);
+  border-radius: 12px;
+}
+.hero-card::-webkit-scrollbar-thumb:hover{
+  background: rgba(15,23,42,0.32);
+}
+.hero-card::-webkit-scrollbar-track{
+  background: rgba(255,255,255,0.25);
+  border-radius: 12px;
+}
+
+/* logos row inside card */
+.hero-logos{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap: 2.2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.1rem;
+}
+
+/* NYIT logo + hover zoom */
+.hero-nyit-logo img{
+  width: 190px;
+  max-width: 55vw;
+  background: rgba(255,255,255,0.92);
+  padding: 0.35rem 0.8rem;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.hero-nyit-logo img:hover{
+  transform: scale(1.06);
+  box-shadow: 0 16px 34px rgba(15,23,42,0.18);
+}
+
+/* Title & subtitle */
+.hero-title{
+  margin: 0.25rem 0 0.2rem;
+  font-size: clamp(2.6rem, 5vw, 3.8rem);
+  letter-spacing: 0.02em;
+  font-weight: 800;
+  background: linear-gradient(120deg, var(--gold-3), var(--sky));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero-subtitle{
+  margin: 0.35rem auto 1rem;
+  max-width: 640px;
+  font-size: 1.06rem;
+  color: var(--ink-700);
+  line-height: 1.55;
+}
+
+/* meta blocks */
+.hero-meta{
+  max-width: 700px;
+  margin: 0 auto 1.1rem;
+  text-align: center;
+  color: var(--ink-800);
+}
+.hero-meta p{
+  margin: 0.18rem 0;
+  line-height: 1.55;
+}
+
+.hero-members{
+  max-width: 700px;
+  margin: 0 auto;
+  text-align:center;
+}
+
+.members-title{
+  margin: 0.4rem 0 0.2rem;
+}
+
+.members-list{
+  list-style-position: inside;
+  padding-left: 0;
+}
+.members-list li{ margin: 0.12rem 0; }
+
+/* ===========================
+   5) STATIC PREMIUM COIN ICON
+   =========================== */
+
+.coin-static{
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: url("images/coin.png") center / contain no-repeat;
+  filter: drop-shadow(0 10px 16px rgba(15,23,42,0.28));
+
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+/* Hover zoom */
+.coin-static:hover{
+  transform: scale(1.12);
+  filter: drop-shadow(0 14px 22px rgba(15,23,42,0.35));
+}
+
+/* BIGGER COIN IN HERO (this is what you asked) */
+.coin-static--lg{
+  width: 92px;
+  height: 92px;
+}
+
+/* Slightly calmer hover for big coin */
+.coin-static--lg:hover{
+  transform: scale(1.08);
+}
+
+/* --------------------------
+   6) Floating navigation pills (Prev/Next)
+   - Index uses ONLY .floating-next (fixed bottom-right)
+   - Content pages use .floating-nav wrapper (fixed bottom, left+right)
+-------------------------- */
+
+/* Wrapper for two-button navigation */
+.floating-nav{
+  position: fixed;
+  left: 22px;
+  right: 22px;
+  bottom: 22px;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  /* wrapper should not block clicks except on buttons */
+  pointer-events: none;
+}
+.floating-nav a{ pointer-events: auto; }
+
+/* Shared pill look */
+.floating-prev,
+.floating-next{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+
+  padding: 0.95rem 1.35rem;
+  border-radius: 999px;
+
+  background: linear-gradient(90deg, #6d28d9, #38bdf8);
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+
+  /* tight shadow (no “ring halo”) */
+  box-shadow: 0 10px 22px rgba(15,23,42,0.18);
+  border: 0;
+
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+  will-change: transform;
+}
+
+.floating-prev:hover,
+.floating-next:hover{
+  transform: scale(1.04);
+  filter: brightness(1.03);
+  box-shadow: 0 14px 30px rgba(15,23,42,0.22);
+}
+
+/* Index default: single next button bottom-right */
+body.index-page .floating-next{
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 99999;
+}
+
+/* When inside wrapper, buttons must NOT be fixed */
+.floating-nav .floating-prev,
+.floating-nav .floating-next{
+  position: static !important;
+}
+
+/* --------------------------
+   7) Footer band (FLAT, NO WHITE)
+-------------------------- */
+.footer-band{
+  position: relative;
+  background: #f5f3ff; /* ✅ same soft lavender as page */
+}
+
+/* ✅ REMOVE CURVE COMPLETELY */
+.wave{
+  display: none;
+}
+
+/* ✅ COMPACT FOOTER HEIGHT */
+.site-footer{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0.6rem 2rem;   /* tight height */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.footer-left .footer-nyit{
+  width: 135px;
+  background: rgba(255,255,255,0.95);
+  padding: 0.25rem 0.6rem;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+}
+
+.footer-center{
+  text-align: center;
+  color: var(--ink-700);
+  font-weight: 650;
+}
+
+.footer-right{
+  text-align: right;
+  color: var(--ink-700);
+  font-weight: 600;
+}
+
+.footer-right a{
+  color: var(--blue-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* ===========================
+   GOOGLE SHEETS EMBED (inside card)
+   =========================== */
+
+.sheet-embed{
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(148,163,184,0.35);
+  background: rgba(255,255,255,0.65);
+  box-shadow: 0 10px 24px rgba(15,23,42,0.10);
+}
+
+.sheet-frame{
+  width: 100%;
+  height: min(62vh, 680px);   /* big enough to feel like Excel */
+  border: 0;
+  display: block;
+}
+/* ========= Past Backtest helpers ========= */
+
+.formula-box{
+  background: rgba(255,255,255,0.70);
+  border: 1px solid rgba(148,163,184,0.35);
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 10px 24px rgba(15,23,42,0.10);
+  overflow-x: auto;
+}
+
+.formula-text{
+  font-weight: 800;
+  color: var(--ink-900);
+  line-height: 1.85;
+  white-space: nowrap;
+}
+
+.metrics-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 0.8rem;
+}
+
+.metric-card{
+  background: rgba(255,255,255,0.70);
+  border: 1px solid rgba(148,163,184,0.35);
+  border-radius: 18px;
+  padding: 0.9rem 1rem;
+  box-shadow: 0 10px 24px rgba(15,23,42,0.08);
+}
+
+.metric-title{
+  font-weight: 900;
+  color: var(--ink-900);
+  margin-bottom: 0.25rem;
+}
+
+.metric-formula{
+  color: var(--ink-700);
+  font-weight: 650;
+  font-size: 0.95rem;
+}
+
+.metric-value{
+  margin-top: 0.55rem;
+  font-weight: 900;
+  font-size: 1.35rem;
+  color: var(--blue-2);
+}
+
+/* Tableau embed (same style approach as Google Sheets embed) */
+.viz-embed{
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(148,163,184,0.35);
+  background: rgba(255,255,255,0.65);
+  box-shadow: 0 10px 24px rgba(15,23,42,0.10);
+}
+
+.viz-frame{
+  width: 100%;
+  height: min(68vh, 740px);
+  border: 0;
+  display: block;
+}
+
+@media (max-width: 980px){
+  .metrics-grid{ grid-template-columns: 1fr; }
+  .viz-frame{ height: min(70vh, 720px); }
+}
+/* =========================================================
+   AI LOG — Modern Instagram-style chat (upgrade)
+   Paste at END of style.css
+   ========================================================= */
+
+.ai-chat{
+  width: min(var(--maxw), 94vw);
+  margin: 0 auto;
+  padding: 2rem 0 3.5rem;
+}
+
+/* Center date / divider pill (like IG "Today") */
+.ai-log-divider{
+  width: fit-content;
+  max-width: 92vw;
+  margin: 1.1rem auto;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: rgba(15,23,42,0.78);
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(148,163,184,0.22);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 25px rgba(15,23,42,0.10);
+}
+
+/* Rows */
+.chat-row{
+  display: flex;
+  margin: 0.55rem 0;
+  padding: 0 0.25rem;
+}
+.chat-row--user{ justify-content: flex-end; }
+.chat-row--ai{ justify-content: flex-start; }
+.chat-row--note{ justify-content: center; }
+
+/* Bubble base */
+.chat-bubble{
+  position: relative;
+  max-width: min(760px, 88vw);
+  padding: 0.85rem 0.95rem;
+  border-radius: 20px;
+  border: 1px solid rgba(148,163,184,0.18);
+  box-shadow:
+    0 18px 40px rgba(15,23,42,0.10),
+    0 2px 6px rgba(15,23,42,0.06);
+  backdrop-filter: blur(14px);
+  overflow: hidden;
+}
+
+/* IG-ish bubble colors */
+.chat-bubble--user{
+  color: #fff;
+  background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 45%, #22c55e 120%);
+  border-color: rgba(255,255,255,0.10);
+}
+
+.chat-bubble--ai{
+  color: var(--ink-800);
+  background: rgba(255,255,255,0.82);
+}
+
+.chat-bubble--note{
+  max-width: min(860px, 92vw);
+  color: rgba(15,23,42,0.78);
+  background: rgba(255,255,255,0.55);
+}
+
+/* Subtle “glass shine” */
+.chat-bubble::before{
+  content:"";
+  position:absolute;
+  inset:-40% -30% auto -30%;
+  height: 120px;
+  transform: rotate(8deg);
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 60%);
+  pointer-events:none;
+  opacity: 0.9;
+}
+.chat-bubble--ai::before{ opacity: 0.55; }
+.chat-bubble--note::before{ opacity: 0.35; }
+
+/* Bubble tails (left/right) */
+.chat-bubble--user::after{
+  content:"";
+  position:absolute;
+  right:-6px;
+  bottom: 12px;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, #3b82f6, #22c55e);
+  transform: rotate(45deg);
+  border-radius: 4px;
+  filter: drop-shadow(0 6px 10px rgba(15,23,42,0.12));
+}
+.chat-bubble--ai::after{
+  content:"";
+  position:absolute;
+  left:-6px;
+  bottom: 12px;
+  width: 16px;
+  height: 16px;
+  background: rgba(255,255,255,0.82);
+  transform: rotate(45deg);
+  border-radius: 4px;
+  filter: drop-shadow(0 6px 10px rgba(15,23,42,0.08));
+}
+
+/* Header inside bubble: speaker + role tag */
+.chat-meta{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.45rem;
+}
+.chat-speaker{
+  font-weight: 900;
+  letter-spacing: 0.01em;
+}
+.chat-bubble--user .chat-speaker{ color:#fff; }
+.chat-bubble--ai .chat-speaker{ color: var(--ink-900); }
+
+.chat-tag{
+  font-size: 0.75rem;
+  font-weight: 900;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(15,23,42,0.08);
+  color: rgba(15,23,42,0.70);
+}
+.chat-bubble--user .chat-tag{
+  background: rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.92);
+}
+
+/* Message text */
+.chat-text{
+  line-height: 1.58;
+  font-size: 1.02rem;
+}
+.chat-bubble--user .chat-text{ color: rgba(255,255,255,0.96); }
+
+.chat-text p{ margin: 0.35rem 0; }
+.chat-text ul,
+.chat-text ol{ margin: 0.4rem 0 0.4rem 1.15rem; }
+.chat-text li{ margin: 0.22rem 0; }
+.chat-text strong{ font-weight: 900; }
+
+/* Timestamp (optional) */
+.chat-time{
+  margin-top: 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 750;
+  opacity: 0.75;
+  display: flex;
+  justify-content: flex-end;
+}
+.chat-row--ai .chat-time{ justify-content: flex-start; }
+.chat-row--note .chat-time{ justify-content: center; }
+
+/* Reduce “heavy” look on small screens */
+@media (max-width: 640px){
+  .chat-bubble{ padding: 0.78rem 0.85rem; border-radius: 18px; }
+  .chat-text{ font-size: 0.98rem; }
+  .chat-bubble--user::after,
+  .chat-bubble--ai::after{ bottom: 10px; }
+}
+/* =========================================================
+   AI LOG — Forecasting themed background 
+   Add class="ai-log-page" on <body>
+   ========================================================= */
+
+body.ai-log-page{
+  position: relative;
+  background: radial-gradient(circle at top left, #e0f2fe 0%, #fef9c3 38%, #f5f3ff 90%);
+}
+
+/* Soft overlay grid + trend line + subtle candlesticks */
+body.ai-log-page::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background:
+    /* grid */
+    linear-gradient(rgba(15,23,42,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,23,42,0.08) 1px, transparent 1px),
+    /* subtle candlesticks-ish vertical bars */
+    repeating-linear-gradient(
+      90deg,
+      rgba(56,189,248,0.00) 0px,
+      rgba(56,189,248,0.00) 28px,
+      rgba(56,189,248,0.18) 29px,
+      rgba(56,189,248,0.00) 31px,
+      rgba(56,189,248,0.00) 44px
+    );
+  background-size: 56px 56px, 56px 56px, 220px 100%;
+}
+
+/* Trend line (diagonal glow) */
+body.ai-log-page::after{
+  content:"";
+  position: fixed;
+  inset: -20%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.45;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(245,158,11,0.22), transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(56,189,248,0.18), transparent 60%),
+    linear-gradient(135deg, transparent 35%, rgba(34,197,94,0.18) 50%, transparent 65%);
+  filter: blur(1px);
+}
+
+/* Make sure chat content stays ABOVE the background overlay */
+body.ai-log-page .site-header,
+body.ai-log-page .main,
+body.ai-log-page .footer-band{
+  position: relative;
+  z-index: 1;
+}
+
+/* Optional: extra glass feel for the chat container on this page */
+body.ai-log-page .ai-chat{
+  padding-top: 1.5rem;
+  padding-bottom: 4rem;
+}
+

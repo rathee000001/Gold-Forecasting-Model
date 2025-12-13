@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Excel Model — Gold Forecasting Model</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- HEADER (same on every page) -->
+  <header class="site-header">
+    <nav class="navbar" aria-label="Primary navigation">
+      <div class="nav-left">
+        <div class="coin-static" aria-hidden="true"></div>
+        <div class="brand-title">Gold Forecasting Model</div>
+      </div>
+
+      <div class="nav-links">
+        <a class="nav-link" href="index.html">Index</a>
+        <a class="nav-link" href="methodology.html">Methodology</a>
+        <a class="nav-link active" href="excel-model.html">Excel Model</a>
+        <a class="nav-link" href="past-backtest.html">Past Backtest</a>
+        <a class="nav-link" href="future-backtest.html">Future Backtest</a>
+        <a class="nav-link" href="factors-drivers.html">Factors &amp; Drivers</a>
+        <a class="nav-link" href="ai-log.html">Log</a>
+      </div>
+    </nav>
+
+    <div class="progress-wrap" aria-hidden="true">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- =========================
+         BLOCK 1 — EXCEL MODEL OVERVIEW
+         ========================= -->
+    <section class="hero" aria-label="Excel Model Overview">
+<!-- ✅ background image = images/Excel Model.webp -->
+<div class="hero-bg" aria-hidden="true"
+     style='background-image: var(--hero-overlay), url("images/Excel%20Model.webp");'></div>
+   
+  
+      <article class="hero-card wide">
+        <h1 class="hero-title">Excel Model</h1>
+        <p class="hero-subtitle">
+          This page documents the workbook architecture exactly as implemented: how the sheets are organized,
+          how data flows through transformations, and how regression outputs become a forecasted gold price path.
+        </p>
+
+        <div class="hero-meta">
+          <p><strong>Workbook sheets:</strong> Raw_Data → Factors_Model → Forecast_Backtest_10Y</p>
+          <p><strong>Primary forecast target:</strong> Monthly gold returns (then converted to a modeled price series)</p>
+        </div>
+
+        <div class="hero-members">
+          <p class="members-title"><strong>File:</strong></p>
+          <ul class="members-list">
+            <li><a href="Gold%20Forecasting%20Model.xlsx">Gold Forecasting Model.xlsx</a></li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ONE fixed navigation row -->
+      <div class="floating-nav" aria-label="Page navigation">
+        <a class="floating-prev" href="methodology.html" aria-label="Back to Methodology">← Methodology</a>
+        <a class="floating-next" href="past-backtest.html" aria-label="Next to Past Backtest">Past Backtest →</a>
+      </div>
+    </section>
+
+<!-- =========================
+     CONTAINER 2 — EMBED EXCEL (GOOGLE SHEETS)
+     ========================= -->
+<section class="hero" aria-label="Excel Sheet Embed">
+ <!-- ✅ background image = images/Excel Workbook.jpg -->
+<div class="hero-bg" aria-hidden="true"
+     style='background-image: var(--hero-overlay), url("images/Excel%20Workbook.jpg");'></div>
+
+
+  <article class="hero-card wide">
+    <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">
+      2. Excel Workbook (Live View)
+    </h2>
+
+    <p class="hero-subtitle">
+      This is the live workbook view (Raw_Data, Factors_Model, Backtest_Past, Backtest_Future).
+      Scroll inside the embed to view the sheet exactly as in Excel.
+    </p>
+
+    <!-- ✅ GOOGLE SHEETS EMBED -->
+    <div class="sheet-embed">
+<iframe
+  class="sheet-frame"
+  src="https://docs.google.com/spreadsheets/d/1yyXTxb6EGieDZzwa4UEzwgfIcTp68QDXlzMK5J1QdAI/edit?usp=sharing"
+  loading="lazy"
+  allowfullscreen
+  title="Gold Forecasting Model – Excel Workbook">
+</iframe>
+
+    </div>
+  </article>
+</section>
+
+
+    <!-- =========================
+         BLOCK 3 — RAW_DATA SHEET
+         ========================= -->
+    <section class="hero" aria-label="Raw_Data Sheet">
+      <!-- ✅ background image = images/Sheet Raw Data.jpg -->
+<div class="hero-bg" aria-hidden="true"
+     style='background-image: var(--hero-overlay), url("images/Sheet%20Raw%20Data.jpg");'></div>
+
+
+      <article class="hero-card wide">
+        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">2. Sheet: Raw_Data</h2>
+        <p class="hero-subtitle">
+          Raw_Data contains the monthly time-series inputs. This is the single source of truth for the model’s
+          input series before any return calculations or standardization.
+        </p>
+
+        <div class="hero-meta" style="text-align:left; max-width: 860px;">
+          <p><strong>What lives here:</strong> Gold price (USD) and the factor series used later for return/real-rate/reserve-change construction.</p>
+          <p><strong>Why it matters:</strong> Keeping raw inputs separate prevents accidental mixing of “raw” vs “derived” variables and makes the model fully auditable.</p>
+          <p><strong>Data flow:</strong> Raw_Data feeds Factors_Model (aligned month-by-month).</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- =========================
+         BLOCK 4 — FACTORS_MODEL SHEET
+         ========================= -->
+    <section class="hero" aria-label="Factors_Model Sheet">
+      <!-- ✅ background image = images/Sheet Factors_Model.webp -->
+<div class="hero-bg" aria-hidden="true"
+     style='background-image: var(--hero-overlay), url("images/Sheet%20Factors_Model.webp");'></div>
+
+
+      <article class="hero-card wide">
+        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">3. Sheet: Factors_Model</h2>
+        <p class="hero-subtitle">
+          Factors_Model transforms raw series into the variables used for estimation and forecasting. It copies
+          aligned input series from Raw_Data and creates derived monthly variables.
+        </p>
+
+        <div class="hero-meta" style="text-align:left; max-width: 860px;">
+          <p><strong>Calculated columns (documented):</strong></p>
+          <ul class="members-list">
+            <li>Gold_Return</li>
+            <li>US_Import_Return</li>
+            <li>USD_Return</li>
+            <li>CPI_Infl_YoY</li>
+            <li>Real_Rate</li>
+            <li>CB_BRICS_Share</li>
+            <li>CB_World_Change</li>
+            <li>CB_BRICS_Change</li>
+            <li>CB_BRICS_Share_Change</li>
+            <li>Optional standardized versions (e.g., Gold_Return_Z)</li>
+          </ul>
+
+          <p style="margin-top:0.9rem;"><strong>Data flow:</strong> Factors_Model feeds Forecast_Backtest_10Y.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- =========================
+         BLOCK 5 — FORECAST_BACKTEST_10Y SHEET
+         ========================= -->
+    <section class="hero" aria-label="Forecast_Backtest_10Y Sheet">
+     <!-- ✅ background image = images/Sheet Forecast_Backtest_10Y.webp -->
+<div class="hero-bg" aria-hidden="true"
+     style='background-image: var(--hero-overlay), url("images/Sheet%20Forecast_Backtest_10Y.webp");'></div>
+
+
+      <article class="hero-card wide">
+        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">4. Sheet: Forecast_Backtest_10Y</h2>
+        <p class="hero-subtitle">
+          This sheet generates the predicted gold return series using the regression specification and converts
+          predicted returns into a modeled price path for comparison against actual historical prices.
+        </p>
+
+        <div class="hero-meta" style="text-align:left; max-width: 860px;">
+          <p><strong>Outputs:</strong></p>
+          <ul class="members-list">
+            <li>Predicted_Return (monthly)</li>
+            <li>Predicted_Price_Path (recursive price series)</li>
+            <li>Actual vs Predicted comparison (for backtesting)</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <!-- =========================
+         BLOCK 6 — CORE EQUATIONS
+         ========================= -->
+    <section class="hero" aria-label="Core Equations">
+     <!-- ✅ background image = images/Core Equations.jpg -->
+<div class="hero-bg" aria-hidden="true"
+     style='background-image: var(--hero-overlay), url("images/Core%20Equations.jpg");'></div>
+
+
+      <article class="hero-card wide">
+        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">5. Core Equations (as implemented)</h2>
+        <p class="hero-subtitle">
+          The workbook uses a regression framework (with standardized inputs where applicable) to estimate monthly gold returns,
+          then compounds predicted returns into a modeled price path.
+        </p>
+
+        <div class="hero-meta" style="text-align:left; max-width: 860px;">
+          <p><strong>Standardization (Z-score):</strong> Z(X) = (X − mean(X)) / stdev(X)</p>
+          <p style="margin-top:0.85rem;"><strong> Gold_Returnₜ = β₀ + β₁·Real_Rateₜ + β₂·USD_Returnₜ + β₃·US_Import_Returnₜ + β₄·GPR_Indexₜ + β₅·CB_BRICS_Share_Changeₜ + … + εₜ</strong></p>
+          <p style="margin-top:0.85rem;"><strong>Predicted monthly return:</strong></p>
+          <p style="margin-left:0.25rem;">Predicted_Returnₜ = β̂₀ + β̂₁·X₁ₜ + … + β̂ₖ·Xₖₜ</p>
+
+          <p style="margin-top:0.85rem;"><strong>Recursive modeled price path:</strong></p>
+          <p style="margin-left:0.25rem;">Predicted_Priceₜ = Predicted_Priceₜ₋₁ × (1 + Predicted_Returnₜ)</p>
+
+          <p style="margin-top:0.85rem;"><strong>Constraints:</strong></p>
+          <ul class="members-list">
+            <li>Linear regression structure</li>
+            <li>Monthly frequency</li>
+            <li>Assumes relationships are sufficiently stable for forecasting/backtesting use</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- FOOTER (same on every page) -->
+  <section class="footer-band" aria-label="Footer band">
+    <footer class="site-footer">
+      <div class="footer-left">
+        <img class="footer-nyit" src="images/nyit.png" alt="NYIT Logo" />
+      </div>
+
+      <div class="footer-center">
+        © 2025 Gold Forecasting Model • NYIT • Supply Chain Management
+      </div>
+
+      <div class="footer-right">
+        Contact:
+        <a href="mailto:prathe01@nyit.edu">prathe01@nyit.edu</a>
+      </div>
+    </footer>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
