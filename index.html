@@ -9,6 +9,30 @@
   <meta name="description" content="Ounces Ahead — Gold Forecasting Model (Supply Chain Management, Spring 2025)." />
 
   <link rel="stylesheet" href="style.css" />
+  <!-- ✅ FIX: remove “scroll inside card” everywhere on this page
+       (Later you can move this exact CSS into style.css to apply site-wide) -->
+  <style>
+    /* kill any internal scrolling on hero cards */
+    .hero-card,
+    .hero-card.wide{
+      max-height: none !important;
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    /* if any inner wrappers were given fixed heights/scroll */
+    .hero-meta,
+    .hero-members,
+    .members-list{
+      max-height: none !important;
+      overflow: visible !important;
+    }
+
+    /* prevent accidental “scroll container” behavior */
+    .hero{
+      overflow: visible !important;
+    }
+  </style>
 </head>
 
 <body class="page index-page" data-page="index">
@@ -24,13 +48,14 @@
       </div>
 
       <div class="nav-links">
-        <a class="nav-link active" href="index.html">Index</a>
-        <a class="nav-link" href="methodology.html">Methodology</a>
-        <a class="nav-link" href="excel-model.html">Excel Model</a>
-        <a class="nav-link" href="past-backtest.html">Past Backtest</a>
-        <a class="nav-link" href="future-backtest.html">Future Backtest</a>
-        <a class="nav-link" href="factors-drivers.html">Factors &amp; Drivers</a>
-        <a class="nav-link" href="ai-log.html">Log</a>
+      <a class="nav-link" href="index.html">Index</a>
+      <a class="nav-link" href="methodology.html">Model Framework</a>
+      <a class="nav-link" href="excel-model.html">Model Implementation</a>
+      <a class="nav-link" href="past-backtest.html">Backtest In-Sample</a>
+      <a class="nav-link" href="future-backtest.html">Backtest Out-Sample</a>
+      <a class="nav-link active" href="model-summary.html">Model Summary</a>
+      <a class="nav-link" href="ai-log.html">AI Log</a>
+
       </div>
     </nav>
 
@@ -67,7 +92,7 @@
         <div class="hero-meta">
           <p><strong>Course:</strong> Supply Chain Management</p>
           <p><strong>Term:</strong> Spring 2025</p>
-          <p><strong>Professor</strong> Rajendra Tibrewala</p>
+          <p><strong>Instructor:</strong> Rajendra Tibrewala</p>
         </div>
 
         <div class="hero-members">
@@ -81,7 +106,7 @@
 
       <!-- single button (index page) -->
       <a class="floating-next" href="methodology.html" aria-label="Go to Methodology">
-        Methodology →
+        Model Framework →
       </a>
     </section>
 
@@ -109,5 +134,3 @@
   <script src="app.js"></script>
 </body>
 </html>
-
-

@@ -5,6 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Methodology — Gold Forecasting Model</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- ✅ FIX: remove “scroll inside card” everywhere on this page
+       (Later you can move this exact CSS into style.css to apply site-wide) -->
+  <style>
+    /* kill any internal scrolling on hero cards */
+    .hero-card,
+    .hero-card.wide{
+      max-height: none !important;
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    /* if any inner wrappers were given fixed heights/scroll */
+    .hero-meta,
+    .hero-members,
+    .members-list{
+      max-height: none !important;
+      overflow: visible !important;
+    }
+
+    /* prevent accidental “scroll container” behavior */
+    .hero{
+      overflow: visible !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -18,13 +43,13 @@
       </div>
 
       <div class="nav-links">
-        <a class="nav-link" href="index.html">Index</a>
-        <a class="nav-link active" href="methodology.html">Methodology</a>
-        <a class="nav-link" href="excel-model.html">Excel Model</a>
-        <a class="nav-link" href="past-backtest.html">Past Backtest</a>
-        <a class="nav-link" href="future-backtest.html">Future Backtest</a>
-        <a class="nav-link" href="factors-drivers.html">Factors &amp; Drivers</a>
-        <a class="nav-link" href="ai-log.html">Log</a>
+      <a class="nav-link" href="index.html">Index</a>
+      <a class="nav-link" href="methodology.html">Model Framework</a>
+      <a class="nav-link" href="excel-model.html">Model Implementation</a>
+      <a class="nav-link" href="past-backtest.html">Backtest In-Sample</a>
+      <a class="nav-link" href="future-backtest.html">Backtest Out-Sample</a>
+      <a class="nav-link active" href="model-summary.html">Model Summary</a>
+      <a class="nav-link" href="ai-log.html">AI Log</a>
       </div>
     </nav>
 
@@ -44,101 +69,224 @@
            style='background-image: var(--hero-overlay), url("images/methodology.png");'></div>
 
       <article class="hero-card wide">
-        <h1 class="hero-title">Methodology</h1>
+        <h1 class="hero-title">Model Framework</h1>
         <p class="hero-subtitle">
-          A transparent, Excel-based workflow to forecast gold price behavior using monthly return modeling,
-          validation through backtesting, and decision-relevant interpretation for Supply Chain Management.
+          This project builds a transparent, Excel-based monthly gold price level forecasting model using
+          macro-financial drivers. We document data sourcing, cleaning, month-end alignment, regression estimation,
+          and backtesting (in-sample and out-of-sample) to produce an interpretable and academically defensible workflow.
         </p>
 
         <div class="hero-meta">
-          <p><strong>Workflow:</strong> Data → Transformations → Regression Estimation → Backtesting → Forecast Use</p>
+          <p><strong>Workflow:</strong> Data → Cleaning &amp; Month-End Alignment → Regression (Price Level) → Backtesting → Conditional Forecast</p>
           <p><strong>Output:</strong> Excel model + Tableau dashboards + AI log documentation</p>
         </div>
 
         <div class="hero-members">
           <p class="members-title"><strong>Use this page to understand:</strong></p>
           <ul class="members-list">
-            <li>What data is used and why</li>
-            <li>How variables are transformed into returns and standardized inputs</li>
-            <li>How the model generates predicted returns and a price path</li>
-            <li>How validation is done via backtesting</li>
-            <li>Why the approach matters for supply chain decisions</li>
+            <li>Gold’s monetary role and why it behaves differently from industrial metals</li>
+            <li>Why gold was chosen (vs other metals) for a macro-driven forecasting model</li>
+            <li>Exactly where the data comes from (with clickable dataset links)</li>
+            <li>How the data was cleaned and aligned to month-end for consistency</li>
+            <li>How the model evolved (Real Rate → CPI + US10Y Nominal) and why</li>
           </ul>
         </div>
       </article>
     </section>
 
     <!-- =========================
-         BLOCK 2 — DATA COLLECTION
+         BLOCK 2 — HISTORY / WHY GOLD
          ========================= -->
-    <section class="hero" aria-label="1 Data Collection and Sources">
+    <section class="hero" aria-label="Gold Monetary Role and Why Gold">
       <!-- ✅ background image = images/Data Collection & Sources.jpg -->
       <div class="hero-bg" aria-hidden="true"
            style='background-image: var(--hero-overlay), url("images/Data%20Collection%20%26%20Sources.jpg");'></div>
 
       <article class="hero-card wide">
-        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">1. Data Collection &amp; Sources</h2>
+        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">1. History of Gold &amp; Monetary Role</h2>
         <p class="hero-subtitle">
-          The model uses a structured set of monthly time-series inputs that represent gold price behavior and
-          key economic, currency, trade, geopolitical, and reserve-related drivers.
+          Gold is often treated as a monetary asset because it has historically served as a store of value and a
+          reserve asset held by central banks. In modern markets, gold can respond to inflation expectations, real/nominal
+          interest rates, currency strength (USD), and risk regimes (volatility and geopolitical shocks).
         </p>
 
         <div class="hero-meta" style="text-align:left; max-width: 780px;">
-          <p><strong>Target:</strong> Gold price in USD and derived monthly gold returns.</p>
-          <p><strong>Macro:</strong> Interest-rate and inflation proxies (used to reflect real-rate conditions).</p>
-          <p><strong>Currency:</strong> USD strength measures (because gold is USD-denominated).</p>
-          <p><strong>Trade / Commodity Proxy:</strong> import/export or trade-linked indices related to gold movement.</p>
-          <p><strong>Risk:</strong> Geopolitical risk indicators (shocks can drive flight-to-safety demand).</p>
-          <p><strong>Reserves:</strong> Central bank reserve behavior (global and BRICS share changes).</p>
+          <p><strong>Monetary behavior:</strong> Gold can act like “financial insurance” in periods of stress and policy uncertainty.</p>
+          <p><strong>USD-denominated pricing:</strong> A stronger USD often pressures gold; a weaker USD can support it.</p>
+          <p><strong>Reserves channel:</strong> Central bank purchases/sales affect long-run demand and regime dynamics.</p>
+        </div>
+
+        <div class="hero-members">
+          <p class="members-title"><strong>2. Why Gold (vs other metals)</strong></p>
+          <ul class="members-list">
+            <li><strong>Not purely industrial:</strong> Unlike copper/aluminum, gold demand is heavily financial and reserve-driven.</li>
+            <li><strong>Macro sensitivity:</strong> Gold is more directly linked to rates, inflation, USD strength, and risk sentiment.</li>
+            <li><strong>Policy relevance:</strong> Gold is actively held by central banks as a reserve asset, which supports a macro-factor approach.</li>
+          </ul>
         </div>
       </article>
     </section>
 
     <!-- =========================
-         BLOCK 3 — TRANSFORMATIONS
+         BLOCK 3 — DATA SOURCES + CLEANING
          ========================= -->
-    <section class="hero" aria-label="2 Data Preparation and Transformations">
+    <section class="hero" aria-label="Data Sources and Cleaning">
       <!-- ✅ background image = images/Transformations & Preparation.png -->
       <div class="hero-bg" aria-hidden="true"
            style='background-image: var(--hero-overlay), url("images/Transformations%20%26%20Preparation.png");'></div>
 
       <article class="hero-card wide">
-        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">2. Transformations &amp; Preparation</h2>
+        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">
+          3. Data Sources &amp; Rationale (with Links)
+        </h2>
+
         <p class="hero-subtitle">
-          To make time-series relationships more stable and comparable, the model converts raw series into returns
-          and standardized inputs, then aligns all variables to the same monthly timeline.
+          Each variable is selected to represent a distinct macro-financial channel that influences gold prices:
+          opportunity cost, inflation protection, currency valuation, market risk, geopolitical uncertainty,
+          and structural demand from central banks.
         </p>
 
-        <div class="hero-meta" style="text-align:left; max-width: 780px;">
-          <p><strong>Returns focus:</strong> The model analyzes returns rather than raw prices to reduce non-stationarity.</p>
-          <p><strong>Log returns / percent change:</strong> Used to express month-to-month change consistently.</p>
-          <p><strong>Standardization (Z-scores):</strong> Inputs are normalized so different scales don’t dominate the regression.</p>
-          <p><strong>Alignment:</strong> All variables are synchronized to the same month index to prevent timing mismatches.</p>
-          <p><strong>Quality controls:</strong> Checks for missing values and inconsistent dates to keep regression inputs valid.</p>
+        <div class="hero-meta" style="text-align:left; max-width: 900px;">
+
+          <p>
+            <strong>Gold Price (USD/oz):</strong>
+            World Gold Council / LBMA —
+            <a href="https://www.gold.org/goldhub/data/gold-prices" target="_blank" rel="noopener">
+              gold.org/goldhub/data/gold-prices
+            </a><br>
+            <em>Why used:</em> This is the dependent variable of the model. LBMA prices are the global benchmark used
+            in academic research and financial markets. Month-end gold prices reflect prevailing macro and risk
+            conditions priced by the market at that point in time.
+          </p>
+
+          <p>
+            <strong>US10Y Nominal Yield (GS10, monthly):</strong>
+            FRED —
+            <a href="https://fred.stlouisfed.org/series/GS10" target="_blank" rel="noopener">
+              fred.stlouisfed.org/series/GS10
+            </a><br>
+            <em>Why used:</em> The 10-year Treasury yield captures the opportunity cost of holding gold,
+            which does not generate interest. Rising yields increase the attractiveness of fixed-income assets
+            relative to gold, while falling yields tend to support gold prices.
+          </p>
+
+          <p>
+            <strong>CPI (CPIAUCSL, monthly):</strong>
+            FRED —
+            <a href="https://fred.stlouisfed.org/series/CPIAUCSL" target="_blank" rel="noopener">
+              fred.stlouisfed.org/series/CPIAUCSL
+            </a><br>
+            <em>Why used:</em> CPI measures inflation and purchasing-power erosion. Gold is widely viewed as an
+            inflation hedge, making CPI a key variable for explaining long-run gold price behavior.
+          </p>
+
+          <p>
+            <strong>USD Index (DTWEXBGS, trade-weighted):</strong>
+            FRED —
+            <a href="https://fred.stlouisfed.org/series/DTWEXBGS" target="_blank" rel="noopener">
+              fred.stlouisfed.org/series/DTWEXBGS
+            </a><br>
+            <em>Why used:</em> Gold is priced globally in U.S. dollars. A stronger USD generally puts downward
+            pressure on gold prices, while a weaker USD supports demand. The trade-weighted index captures
+            broad dollar strength rather than a narrow currency basket.
+          </p>
+
+          <p>
+            <strong>Geopolitical Risk (GPR):</strong>
+            PolicyUncertainty —
+            <a href="https://www.policyuncertainty.com/gpr.html" target="_blank" rel="noopener">
+              policyuncertainty.com/gpr.html
+            </a>
+            (dataset:
+            <a href="https://www.policyuncertainty.com/media/GPR/GPR_Data.csv" target="_blank" rel="noopener">
+              GPR_Data.csv
+            </a>)<br>
+            <em>Why used:</em> GPR captures geopolitical shocks such as wars, conflicts, and political instability.
+            These events often trigger flight-to-safety behavior, increasing demand for gold as a defensive asset.
+          </p>
+
+          <p>
+            <strong>VIX (risk sentiment proxy):</strong>
+            FRED —
+            <a href="https://fred.stlouisfed.org/series/VIXCLS" target="_blank" rel="noopener">
+              fred.stlouisfed.org/series/VIXCLS
+            </a>
+            <em>(converted to monthly metric in our cleaning step)</em><br>
+            <em>Why used:</em> The VIX measures market uncertainty and volatility. Elevated risk sentiment
+            is commonly associated with increased safe-haven demand for gold.
+          </p>
+
+          <p>
+            <strong>Central Bank Gold Reserves (monthly statistics):</strong>
+            World Gold Council —
+            <a href="https://www.gold.org/goldhub/data/monthly-central-bank-statistics" target="_blank" rel="noopener">
+              gold.org/goldhub/data/monthly-central-bank-statistics
+            </a><br>
+            <em>Why used:</em> Central bank purchases and sales represent structural, long-term demand for gold.
+            Changes in reserve accumulation can shift gold’s equilibrium price and reflect changes in the global
+            monetary regime.
+          </p>
+
         </div>
+
+        <div class="hero-members">
+          <p class="members-title"><strong>Data Cleaning &amp; Month-End Alignment</strong></p>
+          <ul class="members-list">
+            <li>
+              <strong>Month-end consistency:</strong>
+              All variables are aligned to the same month-end timeline to avoid timing mismatch between prices,
+              yields, indices, and macro indicators.
+            </li>
+            <li>
+              <strong>Cleaning:</strong>
+              Missing values, inconsistent date stamps, and frequency mismatches are corrected so each regression
+              observation uses fully comparable inputs.
+            </li>
+            <li>
+              <strong>Why month-end (not averages for level variables):</strong>
+              Gold prices are spot levels determined by current conditions; using month-end values avoids mixing
+              outdated information and reduces measurement error.
+            </li>
+          </ul>
+        </div>
+
       </article>
     </section>
 
     <!-- =========================
-         BLOCK 4 — MODEL ESTIMATION
+         BLOCK 4 — MODEL / ITERATION STORY
          ========================= -->
-    <section class="hero" aria-label="3 Model Estimation and Regression Framework">
+    <section class="hero" aria-label="Model Estimation and Iteration Story">
       <!-- ✅ background image = images/Estimation Framework.png -->
       <div class="hero-bg" aria-hidden="true"
            style='background-image: var(--hero-overlay), url("images/Estimation%20Framework.png");'></div>
 
       <article class="hero-card wide">
-        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">3. Estimation Framework</h2>
+        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">4. Methodology &amp; Model Iteration</h2>
         <p class="hero-subtitle">
-          The model uses a regression-based approach to estimate how changes in standardized factors relate to gold returns.
-          Estimated coefficients produce a predicted return series, which can be converted into a modeled price path.
+          The final model is a multiple linear regression where the dependent variable is the gold price level (USD/oz),
+          explained by macro and risk drivers. We tested an initial “real rate” approach, then improved interpretability
+          and performance by separating CPI and the nominal 10Y yield.
         </p>
 
-        <div class="hero-meta" style="text-align:left; max-width: 780px;">
-          <p><strong>Regression logic:</strong> Gold return is modeled as a linear function of standardized factor returns.</p>
-          <p><strong>Coefficient meaning:</strong> Each factor receives a weight based on historical relationships.</p>
-          <p><strong>Prediction:</strong> A predicted return is generated each month using the estimated weights.</p>
-          <p><strong>Constraints &amp; assumptions:</strong> Linear structure, stable relationships, and monthly frequency.</p>
+        <div class="hero-meta" style="text-align:left; max-width: 900px;">
+          <p><strong>Initial attempt (derived Real Rate):</strong> Real Rate was computed from nominal yield and inflation proxy,
+            then used as a driver. This worked mechanically but produced weaker fit/interpretability in practice.</p>
+
+          <p><strong>Final decision:</strong> Replace Real Rate with <strong>CPI + US10Y Nominal</strong> separately.
+            This reduces noise from a constructed variable and clarifies the model’s economic channels.</p>
+
+          <p><strong>Final specification (drivers):</strong> US10Y Nominal, CPI, USD Index, GPR, VIX, and Central Bank Gold Reserves.</p>
+
+          <p><strong>Training vs testing discipline:</strong> Coefficients are trained on the in-sample period and then applied
+            forward in the out-of-sample period without retraining to preserve a valid evaluation framework.</p>
+        </div>
+
+        <div class="hero-members">
+          <p class="members-title"><strong>Interpretation note (important)</strong></p>
+          <ul class="members-list">
+            <li>Out-of-sample errors post-2020 can reflect structural breaks (COVID stimulus, inflation regime shift, geopolitics, central bank demand), not “bad Excel.”</li>
+          </ul>
         </div>
       </article>
     </section>
@@ -152,17 +300,16 @@
            style='background-image: var(--hero-overlay), url("images/Backtesting%20%26%20Validation.png");'></div>
 
       <article class="hero-card wide">
-        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">4. Backtesting &amp; Validation</h2>
+        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">5. Backtesting &amp; Validation</h2>
         <p class="hero-subtitle">
-          Validation is performed by comparing model-implied returns (and the derived price path) against actual historical
-          gold behavior. The goal is to evaluate reliability, directionality, and practical usefulness.
+          Validation is performed by comparing predicted gold price levels against actual month-end gold prices.
+          We report error metrics and interpret when/why the model diverges (especially during regime changes).
         </p>
 
         <div class="hero-meta" style="text-align:left; max-width: 780px;">
-          <p><strong>Purpose:</strong> Test whether the model tracks major movements and turning points.</p>
-          <p><strong>Accuracy vs usefulness:</strong> Direction and regime detection can matter more than perfect price matching.</p>
-          <p><strong>Error analysis:</strong> Differences often occur during shocks, structural breaks, and sudden risk events.</p>
-          <p><strong>Decision lens:</strong> A good model helps anticipate risk exposure and hedging timing in supply chains.</p>
+          <p><strong>In-sample:</strong> Used for estimation and calibration (Jan 2006 – Dec 2019).</p>
+          <p><strong>Out-of-sample:</strong> Used for true performance evaluation (Jan 2020 – Jun 2025).</p>
+          <p><strong>Error lens:</strong> Divergence can increase during shocks and structural breaks; this is economically interpretable.</p>
         </div>
       </article>
     </section>
@@ -176,10 +323,10 @@
            style='background-image: var(--hero-overlay), url("images/Supply%20Chain%20Relevance.png");'></div>
 
       <article class="hero-card wide">
-        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">5. Supply Chain Relevance</h2>
+        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">6. Supply Chain Relevance</h2>
         <p class="hero-subtitle">
-          Gold price forecasting supports supply chain decision-making when organizations face commodity exposure,
-          global risk, currency impacts, and procurement timing challenges.
+          Gold forecasting supports supply chain decision-making for organizations exposed to commodity risk, currency regimes,
+          and geopolitical disruptions—especially where procurement timing and hedging policies affect total cost.
         </p>
 
         <div class="hero-meta" style="text-align:left; max-width: 780px;">
@@ -200,17 +347,17 @@
            style='background-image: var(--hero-overlay), url("images/Limitations%20%26%20Enhancements.webp");'></div>
 
       <article class="hero-card wide">
-        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">6. Limitations &amp; Enhancements</h2>
+        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">7. Limitations &amp; Enhancements</h2>
         <p class="hero-subtitle">
           The model is intentionally transparent and reproducible, but it also carries constraints typical of monthly,
-          linear factor-based forecasting approaches.
+          linear macro-factor forecasting—especially when structural breaks occur.
         </p>
 
         <div class="hero-meta" style="text-align:left; max-width: 780px;">
-          <p><strong>Linearity:</strong> Relationships may change under extreme market stress or regime shifts.</p>
-          <p><strong>Monthly frequency:</strong> Reduces noise but may miss fast-moving events within a month.</p>
-          <p><strong>Structural breaks:</strong> Sudden shifts can cause temporary divergence from actual prices.</p>
-          <p><strong>Enhancements:</strong> Additional scenario design, robustness checks, and alternative specifications can improve stability.</p>
+          <p><strong>Linearity:</strong> Relationships can change under extreme market stress or regime shifts.</p>
+          <p><strong>Monthly frequency:</strong> Strong for macro structure, but may miss fast-moving within-month events.</p>
+          <p><strong>Structural breaks:</strong> Post-2020 regimes can cause systematic level underprediction.</p>
+          <p><strong>Enhancements:</strong> Scenario design, robustness checks, and alternative specifications can improve stability.</p>
         </div>
 
         <div class="hero-members">
@@ -225,7 +372,7 @@
     <!-- ✅ ONE fixed navigation (no stacking / no halo) -->
     <div class="floating-nav" aria-label="Page navigation">
       <a class="floating-prev" href="index.html" aria-label="Back to Index">← Index</a>
-      <a class="floating-next" href="excel-model.html" aria-label="Go to Excel Model">Excel Model →</a>
+      <a class="floating-next" href="excel-model.html" aria-label="Go to Excel Model">Model Implementation →</a>
     </div>
 
   </main>

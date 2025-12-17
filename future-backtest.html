@@ -3,8 +3,32 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Future Backtest — Gold Forecasting Model</title>
+  <title>Backtest Out-of-sample — Gold Forecasting Model</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- ✅ FIX: remove “scroll inside card” everywhere on this page
+       (Later you can move this exact CSS into style.css to apply site-wide) -->
+  <style>
+    /* kill any internal scrolling on hero cards */
+    .hero-card,
+    .hero-card.wide{
+      max-height: none !important;
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    /* if any inner wrappers were given fixed heights/scroll */
+    .hero-meta,
+    .hero-members,
+    .members-list{
+      max-height: none !important;
+      overflow: visible !important;
+    }
+
+    /* prevent accidental “scroll container” behavior */
+    .hero{
+      overflow: visible !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -18,13 +42,13 @@
       </div>
 
       <div class="nav-links">
-        <a class="nav-link" href="index.html">Index</a>
-        <a class="nav-link" href="methodology.html">Methodology</a>
-        <a class="nav-link" href="excel-model.html">Excel Model</a>
-        <a class="nav-link" href="past-backtest.html">Past Backtest</a>
-        <a class="nav-link active" href="future-backtest.html">Future Backtest</a>
-        <a class="nav-link" href="factors-drivers.html">Factors &amp; Drivers</a>
-        <a class="nav-link" href="ai-log.html">Log</a>
+      <a class="nav-link" href="index.html">Index</a>
+      <a class="nav-link" href="methodology.html">Model Framework</a>
+      <a class="nav-link" href="excel-model.html">Model Implementation</a>
+      <a class="nav-link" href="past-backtest.html">Backtest In-Sample</a>
+      <a class="nav-link" href="future-backtest.html">Backtest Out-Sample</a>
+      <a class="nav-link active" href="model-summary.html">Model Summary</a>
+      <a class="nav-link" href="ai-log.html">AI Log</a>
       </div>
     </nav>
 
@@ -36,70 +60,69 @@
   <main class="main">
 
     <!-- =========================
-         CONTAINER 1 — EXPLANATION + FORMULAS
+         CONTAINER 1 — OUT-OF-SAMPLE EXPLANATION (2020–2025)
          ========================= -->
-    <section class="hero" aria-label="Future Backtest Explanation">
-             <!-- ✅ background image = images/Sheet Forecast_Backtest_10Y.webp -->
-<div class="hero-bg" aria-hidden="true"
-     style='background-image: var(--hero-overlay), url("images/Sheet%20Forecast_Backtest_10Y.webp");'></div>
+    <section class="hero" aria-label="Backtest Out-of-sample Explanation">
+      <!-- ✅ background image -->
+      <div class="hero-bg" aria-hidden="true"
+           style='background-image: var(--hero-overlay), url("images/Sheet%20Forecast_Backtest_10Y.webp");'></div>
 
       <article class="hero-card wide">
-        <h1 class="hero-title">Future Backtest</h1>
+        <h1 class="hero-title">Backtest Out-of-sample</h1>
+
         <p class="hero-subtitle">
-          This “future” validation checks how the model performs when applied forward across the later portion of the timeline.
-          The objective is decision usefulness (direction + regime detection) rather than perfect point-level matching.
+          This section evaluates true predictive performance on <strong>unseen data</strong>.
+          The regression is trained on <strong>2006–2019</strong>, then applied forward to
+          <strong>Jan 2020 – Jun 2025</strong> without re-training.
         </p>
 
         <div class="hero-meta" style="text-align:left; max-width: 920px;">
-          <p><strong>Core Regression (Z-score):</strong></p>
+          <p><strong>Out-of-sample (test) period:</strong> <span style="font-weight:800;">January 2020 – June 2025</span></p>
+          <p><strong>What this test answers:</strong> “Does the model generalize when macro regimes change?”</p>
+          <p><strong>Why this matters:</strong> Out-of-sample behavior is the best indicator of real forecasting credibility.</p>
 
-          <div class="formula-box">
-            <div class="formula-text">
-              Gold_Return_Z = β₀
-              <br/>+ β₁ · US_Import_Return_Z
-              <br/>+ β₂ · USD_Return_Z
-              <br/>+ β₃ · Real_Rate_Z
-              <br/>+ β₄ · GPR_Index_Z
-              <br/>+ β₅ · CB_BRICS_Share_Change_Z
-            </div>
-          </div>
-
-          <p style="margin-top: 1rem;"><strong>Convert predicted return to a price path:</strong></p>
-          <div class="formula-box">
-            <div class="formula-text">
-              Predicted_Price<sub>t</sub> = Predicted_Price<sub>t−1</sub> × (1 + Predicted_Return<sub>t</sub>)
-            </div>
-          </div>
+          <p style="margin-top: 1rem;"><strong>Comparison used:</strong></p>
+          Compare <strong>Actual_Gold_Price</strong> vs <strong>Predicted_Gold_Price</strong> (month-end aligned).
+        </div>
       </article>
 
-      <!-- bottom navigation row -->
-      <div class="floating-nav" aria-label="Page navigation">
-        <a class="floating-prev" href="past-backtest.html" aria-label="Back to Past Backtest">← Past Backtest</a>
-        <a class="floating-next" href="factors-drivers.html" aria-label="Next to Factors &amp; Drivers">Factors &amp; Drivers →</a>
-      </div>
+ 
     </section>
 
     <!-- =========================
-         CONTAINER 2 — TABLEAU (FUTURE)
+         CONTAINER 2 — TABLEAU GRAPH (OUT-OF-SAMPLE)
          ========================= -->
-    <section class="hero" aria-label="Tableau Future Backtest (Live)">
-              <!-- ✅ background image = images/Tablue.png -->
-<div class="hero-bg" aria-hidden="true"
-     style='background-image: var(--hero-overlay), url("images/Tablue.png");'></div>
+    <section class="hero" aria-label="Tableau Backtest Out-of-sample (Live)">
+      <!-- ✅ background image -->
+      <div class="hero-bg" aria-hidden="true"
+           style='background-image: var(--hero-overlay), url("images/Tablue.png");'></div>
 
       <article class="hero-card wide">
         <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">
-          Tableau — Future Backtest (Live)
+          Tableau — Actual vs Predicted (Out-of-sample: 2020–2025)
         </h2>
-        <p class="hero-subtitle">Live dashboard view for the Future Backtest only.</p>
 
-        <!-- Tableau embed (provided by you) -->
-        <div class="tableau-embed">
-          <div class='tableauPlaceholder' id='viz1765623839296' style='position: relative'>
+        <p class="hero-subtitle">
+          This chart compares <strong>Actual vs Predicted</strong> gold price levels across the out-of-sample window.
+          Use it to evaluate generalization, regime sensitivity, and where the model systematically under/over-predicts.
+        </p>
+
+        <!-- ✅ YOUR Tableau embed (kept inside the container card) -->
+        <div class="tableau-embed" style="
+          width: 100%;
+          margin-top: 12px;
+          background: rgba(255,255,255,0.35);
+          border: 1px solid rgba(148,163,184,0.28);
+          border-radius: 18px;
+          padding: 10px;
+          box-shadow: 0 10px 24px rgba(15,23,42,0.10);
+          overflow: hidden;
+        ">
+          <div class='tableauPlaceholder' id='viz1765959270597' style='position: relative'>
             <noscript>
               <a href='#'>
-                <img alt='Backtest - Future '
-                     src='https://public.tableau.com/static/images/Go/GoldForecastingModel/Backtest-Future/1_rss.png'
+                <img alt='Actual vs Predicted Gold Price (Out-Sample: 2020–2025) '
+                     src='https://public.tableau.com/static/images/Ba/Backtest_outSample/Sheet2/1_rss.png'
                      style='border: none' />
               </a>
             </noscript>
@@ -107,10 +130,10 @@
               <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
               <param name='embed_code_version' value='3' />
               <param name='site_root' value='' />
-              <param name='name' value='GoldForecastingModel&#47;Backtest-Future' />
+              <param name='name' value='Backtest_outSample/Sheet2' />
               <param name='tabs' value='no' />
               <param name='toolbar' value='yes' />
-              <param name='static_image' value='https://public.tableau.com/static/images/Go/GoldForecastingModel/Backtest-Future/1.png' />
+              <param name='static_image' value='https://public.tableau.com/static/images/Ba/Backtest_outSample/Sheet2/1.png' />
               <param name='animate_transition' value='yes' />
               <param name='display_static_image' value='yes' />
               <param name='display_spinner' value='yes' />
@@ -120,109 +143,277 @@
               <param name='filter' value='publish=yes' />
             </object>
           </div>
+        </div>
 
-          <script type='text/javascript'>
-            var divElement = document.getElementById('viz1765623839296');
+        <script type='text/javascript'>
+          (function () {
+            var divElement = document.getElementById('viz1765959270597');
             var vizElement = divElement.getElementsByTagName('object')[0];
             vizElement.style.width = '100%';
             vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
             var scriptElement = document.createElement('script');
             scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
             vizElement.parentNode.insertBefore(scriptElement, vizElement);
-          </script>
-        </div>
+          })();
+        </script>
       </article>
 
-      <div class="floating-nav" aria-label="Page navigation">
-        <a class="floating-prev" href="past-backtest.html" aria-label="Back to Past Backtest">← Past Backtest</a>
-        <a class="floating-next" href="factors-drivers.html" aria-label="Next to Factors &amp; Drivers">Factors &amp; Drivers →</a>
-      </div>
+    
     </section>
 
     <!-- =========================
-         CONTAINER 3 — ANALYSIS (FROM EXCEL SHEET)
+         CONTAINER 3 — EXPLANATION / GRAPH INTERPRETATION (OUT-OF-SAMPLE)
          ========================= -->
-    <section class="hero" aria-label="Future Backtest Analysis">
-        <!-- ✅ background image = images/Analysis.jpg -->
-<div class="hero-bg" aria-hidden="true"
-     style='background-image: var(--hero-overlay), url("images/Analysis.jpg");'></div>
+    <section class="hero" aria-label="Backtest Out-of-sample Analysis">
+      <!-- ✅ background image -->
+      <div class="hero-bg" aria-hidden="true"
+           style='background-image: var(--hero-overlay), url("images/Analysis.jpg");'></div>
 
       <article class="hero-card wide">
         <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">
-          Analysis &amp; Interpretation
+          Analysis &amp; Interpretation (Out-of-sample: 2020–2025)
         </h2>
 
-        <!-- Symmetric, compact metrics block -->
-        <div style="max-width: 920px; margin: 0 auto; text-align:left;">
+        <div class="hero-meta" style="text-align:left; max-width: 920px; margin-top: 0.8rem;">
+          <p style="margin:0 0 0.8rem;">
+            <strong>How to read the chart:</strong> The blue line is the <em>actual</em> month-end gold price and the orange line is the
+            <em>model-implied</em> predicted price path generated using coefficients trained on 2006–2019.
+          </p>
+
           <div style="
             display:grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 14px;
-            margin-top: 14px;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin: 0.6rem 0 0.9rem;
           ">
             <div style="
               background: rgba(255,255,255,0.60);
-              border: 1px solid rgba(148,163,184,0.35);
-              border-radius: 18px;
+              border: 1px solid rgba(148,163,184,0.28);
+              border-radius: 16px;
               padding: 14px 14px;
               box-shadow: 0 10px 24px rgba(15,23,42,0.10);
-              text-align:center;
             ">
-              <div style="font-weight:800; color: var(--ink-900);">MAD</div>
-              <div style="font-size:0.92rem; color: var(--ink-700); margin-top:4px;">average(|A − F|)</div>
-              <div style="font-size:1.35rem; font-weight:900; margin-top:8px;">218.38</div>
+              <div style="font-weight:900; color: var(--ink-900); margin-bottom: 8px;">What typically happens in 2020–2025</div>
+              <ul style="margin:0; padding-left: 18px; color: var(--ink-700); line-height: 1.6;">
+                <li><strong>Underprediction after major shocks:</strong> Post-2020 periods often show the model below actual price because the regime shift (COVID policy response, risk-on/risk-off swings) changes the historical mapping from macro variables to gold.</li>
+                <li><strong>Peak timing vs peak magnitude:</strong> Linear macro models can often capture direction and turning points better than the exact height of extreme peaks (spikes are harder than trends).</li>
+                <li><strong>Persistent gap after 2022:</strong> A widening gap is consistent with structural changes (inflation regime, geopolitical escalation, central bank reserve behavior) that are stronger than what the 2006–2019 training era contained.</li>
+              </ul>
             </div>
 
             <div style="
               background: rgba(255,255,255,0.60);
-              border: 1px solid rgba(148,163,184,0.35);
-              border-radius: 18px;
+              border: 1px solid rgba(148,163,184,0.28);
+              border-radius: 16px;
               padding: 14px 14px;
               box-shadow: 0 10px 24px rgba(15,23,42,0.10);
-              text-align:center;
             ">
-              <div style="font-weight:800; color: var(--ink-900);">MSE</div>
-              <div style="font-size:0.92rem; color: var(--ink-700); margin-top:4px;">average((A − F)²)</div>
-              <div style="font-size:1.35rem; font-weight:900; margin-top:8px;">57,343.92</div>
+              <div style="font-weight:900; color: var(--ink-900); margin-bottom: 8px;">How to explain “peaks” in your write-up</div>
+              <ul style="margin:0; padding-left: 18px; color: var(--ink-700); line-height: 1.6;">
+                <li><strong>COVID shock (2020):</strong> Safe-haven demand and policy response can push prices beyond what a stable, pre-2020 linear relationship would imply.</li>
+                <li><strong>Inflation + rate volatility (2021–2022):</strong> The model reacts through CPI and yields, but gold can also price uncertainty and policy credibility—effects not fully captured by the inputs.</li>
+                <li><strong>Geopolitical risk (2022+):</strong> Conflict-driven risk premia may lift gold above “macro-only” levels; GPR helps, but magnitude can still be underestimated in extreme events.</li>
+              </ul>
             </div>
 
             <div style="
               background: rgba(255,255,255,0.60);
-              border: 1px solid rgba(148,163,184,0.35);
-              border-radius: 18px;
+              border: 1px solid rgba(148,163,184,0.28);
+              border-radius: 16px;
               padding: 14px 14px;
               box-shadow: 0 10px 24px rgba(15,23,42,0.10);
-              text-align:center;
             ">
-              <div style="font-weight:800; color: var(--ink-900);">MAPE</div>
-              <div style="font-size:0.92rem; color: var(--ink-700); margin-top:4px;">average(|(A − F)/A|) × 100%</div>
-              <div style="font-size:1.35rem; font-weight:900; margin-top:8px;">16.88%</div>
+              <div style="font-weight:900; color: var(--ink-900); margin-bottom: 8px;">Decision use (how you justify it for SCM)</div>
+              <p style="margin:0; color: var(--ink-700); line-height: 1.6;">
+                Treat out-of-sample results as a realism check: even if the model misses peak levels, it can still be useful for
+                <strong>direction, timing, and regime awareness</strong> (procurement windows, hedging triggers, risk monitoring).
+                Larger errors are expected during structural breaks—this is an economic explanation, not an Excel mistake.
+              </p>
             </div>
           </div>
 
-          <div style="margin-top: 16px; color: var(--ink-800); line-height: 1.6;">
-            <p style="margin: 0.2rem 0;">
-              <strong>What these numbers mean:</strong> On the Future Backtest window, the model’s average absolute price error is
-              <strong>~$218</strong> (MAD), with an average percentage error of <strong>~16.9%</strong> (MAPE).
-              The <strong>MSE</strong> is larger because it squares errors (penalizes big misses more).
-            </p>
-            <p style="margin: 0.2rem 0;">
-              <strong>Interpretation for SCM use:</strong> This error level is acceptable if the model correctly captures
-              broad regimes (rising vs falling cycles) and supports timing decisions (hedging triggers / procurement windows),
-              but it will naturally struggle during structural breaks and fast-moving shocks.
-            </p>
-            <p style="margin: 0.2rem 0; color: var(--ink-700);">
-              (Metrics computed directly from the Excel sheet’s Actual (Gold_Price_USD) vs Model_Price_Path.)
-            </p>
-          </div>
+         
         </div>
       </article>
 
       <div class="floating-nav" aria-label="Page navigation">
-        <a class="floating-prev" href="past-backtest.html" aria-label="Back to Past Backtest">← Past Backtest</a>
-        <a class="floating-next" href="factors-drivers.html" aria-label="Next to Factors &amp; Drivers">Factors &amp; Drivers →</a>
+        <a class="floating-prev" href="past-backtest.html" aria-label="Back to Backtest In-sample">← Backtest In-sample</a>
+        <a class="floating-next" href="model-summary.html" aria-label="Next to Model Summary; Drivers">Model Summary →</a>
       </div>
     </section>
+<!-- =========================
+     CONTAINER 4 — ANALYSIS (Out-of-sample Backtest)
+     ========================= -->
+<section class="hero" aria-label="Backtest Out-of-sample Analysis">
+  <!-- background image -->
+  <div class="hero-bg" aria-hidden="true"
+       style='background-image: var(--hero-overlay), url("images/Analysis.jpg");'></div>
+
+  <article class="hero-card wide">
+    <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">
+      Analysis &amp; Interpretation (Out-of-sample: 2020–2025)
+    </h2>
+
+    <div class="hero-meta" style="text-align:left; max-width: 920px; margin-top: 0.8rem;">
+      <p style="margin:0 0 0.8rem;">
+        <strong>Backtest accuracy (Price level):</strong>
+        Metrics computed from <em>Actual_Gold_Price</em> vs <em>Predicted_Gold_Price</em>
+        using the out-of-sample window <strong>January 2020 – June 2025</strong>,
+        with all series aligned at month-end.
+      </p>
+
+      <!-- Metrics row -->
+      <div style="
+        display:grid;
+        grid-template-columns: repeat(3, minmax(180px, 1fr));
+        gap: 14px;
+        align-items: stretch;
+        margin: 0.6rem 0 0.9rem;
+      ">
+
+        <div style="
+          background: rgba(255,255,255,0.60);
+          border: 1px solid rgba(148,163,184,0.28);
+          border-radius: 16px;
+          padding: 14px;
+          text-align:center;
+          box-shadow: 0 10px 24px rgba(15,23,42,0.10);
+        ">
+          <div style="font-weight:800;">MAD</div>
+          <div style="font-size:0.92rem; color: var(--ink-700);">avg(|A − F|)</div>
+          <div style="font-size:1.35rem; font-weight:900; margin-top:8px;">
+            480.39
+          </div>
+        </div>
+
+        <div style="
+          background: rgba(255,255,255,0.60);
+          border: 1px solid rgba(148,163,184,0.28);
+          border-radius: 16px;
+          padding: 14px;
+          text-align:center;
+          box-shadow: 0 10px 24px rgba(15,23,42,0.10);
+        ">
+          <div style="font-weight:800;">MSE</div>
+          <div style="font-size:0.92rem; color: var(--ink-700);">avg((A − F)²)</div>
+          <div style="font-size:1.35rem; font-weight:900; margin-top:8px;">
+            31,040.10
+          </div>
+        </div>
+
+        <div style="
+          background: rgba(255,255,255,0.60);
+          border: 1px solid rgba(148,163,184,0.28);
+          border-radius: 16px;
+          padding: 14px;
+          text-align:center;
+          box-shadow: 0 10px 24px rgba(15,23,42,0.10);
+        ">
+          <div style="font-weight:800;">MAPE</div>
+          <div style="font-size:0.92rem; color: var(--ink-700);">avg(|A − F| / A) × 100%</div>
+          <div style="font-size:1.35rem; font-weight:900; margin-top:8px;">
+            21.20%
+          </div>
+        </div>
+      </div>
+
+      <!-- Interpretation -->
+      <div style="margin-top: 0.6rem; color: var(--ink-700); line-height: 1.6;">
+        <p style="margin:0 0 0.6rem;">
+          <strong>Interpretation:</strong>
+          A <strong>MAPE of ~21%</strong> indicates that the model systematically underpredicts gold prices
+          during the post-2020 period. This divergence coincides with
+          COVID-era monetary expansion, elevated inflation, geopolitical shocks,
+          and a structural shift in central-bank gold demand.
+        </p>
+
+        <p style="margin:0;">
+          <strong>Decision use:</strong>
+          This out-of-sample backtest should be used to assess
+          <em>direction, timing, and regime shifts</em> rather than exact price levels.
+          The model remains useful for supply-chain hedging and procurement planning,
+          but larger absolute errors are expected during structural breaks.
+        </p>
+      </div>
+    </div>
+  </article>
+</section>
+<!-- =========================
+     CONTAINER 5 — CONDITIONAL FORECAST METHODOLOGY
+     ========================= -->
+<section class="hero" aria-label="Conditional Forecast Explanation">
+  <!-- background image -->
+  <div class="hero-bg" aria-hidden="true"
+       style='background-image: var(--hero-overlay), url("images/Analysis.jpg");'></div>
+
+  <article class="hero-card wide">
+    <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">
+      Conditional Forecasting Approach (2025–2026)
+    </h2>
+
+    <div class="hero-meta" style="text-align:left; max-width: 920px; margin-top: 0.8rem;">
+
+      <p style="margin:0 0 0.8rem;">
+        <strong>Purpose:</strong>
+        The conditional forecast extends the estimated gold price model forward by holding
+        macro-financial drivers at assumed or externally provided levels.
+        This approach answers the question:
+        <em>“Given these macro conditions, what price level does the model imply for gold?”</em>
+      </p>
+
+      <p style="margin:0 0 0.8rem;">
+        <strong>Key distinction:</strong>
+        This is <em>not</em> a free-running time-series forecast.
+        Instead, it is a <strong>scenario-based conditional projection</strong>,
+        where future gold prices are conditional on fixed assumptions for the input variables.
+      </p>
+
+      <p style="margin:0 0 0.8rem;">
+        <strong>Methodology steps:</strong>
+      </p>
+
+      <ol style="margin-left: 1.1rem; color: var(--ink-700); line-height: 1.6;">
+        <li>
+          The regression coefficients estimated from the historical training period
+          are held constant.
+        </li>
+        <li>
+          Future values for macro drivers (US 10Y nominal yield, CPI, USD index,
+          geopolitical risk, VIX, and central bank gold holdings)
+          are assumed to remain at their most recent observed or policy-consistent levels.
+        </li>
+
+        <li>
+          The standardized inputs are passed through the regression equation
+          to generate a predicted gold return.
+        </li>
+        <li>
+          The predicted return is converted into a price level,
+          producing a flat conditional price path across the forecast horizon.
+        </li>
+      </ol>
+
+      <p style="margin:0.8rem 0 0.6rem;">
+        <strong>Interpretation of the flat price path:</strong>
+        Because all explanatory variables are held constant,
+        the forecasted gold price remains stable across months.
+        This does not imply zero uncertainty or no future movement,
+        but rather reflects the model’s equilibrium-implied price
+        under unchanged macro conditions.
+      </p>
+
+      <p style="margin:0;">
+        <strong>Decision use:</strong>
+        The conditional forecast should be interpreted as a
+        <em>baseline reference level</em>.
+        It is most useful for scenario comparison
+        (e.g., “What happens to gold if real rates rise?”)
+        rather than point prediction.
+      </p>
+
+    </div>
+  </article>
+</section>
 
   </main>
 
@@ -247,4 +438,3 @@
   <script src="app.js"></script>
 </body>
 </html>
-

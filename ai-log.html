@@ -25,13 +25,14 @@
       </div>
 
       <div class="nav-links">
-        <a class="nav-link active" href="index.html">Index</a>
-        <a class="nav-link" href="methodology.html">Methodology</a>
-        <a class="nav-link" href="excel-model.html">Excel Model</a>
-        <a class="nav-link" href="past-backtest.html">Past Backtest</a>
-        <a class="nav-link" href="future-backtest.html">Future Backtest</a>
-        <a class="nav-link" href="factors-drivers.html">Factors &amp; Drivers</a>
-        <a class="nav-link" href="ai-log.html">Log</a>
+      <a class="nav-link" href="index.html">Index</a>
+      <a class="nav-link" href="methodology.html">Model Framework</a>
+      <a class="nav-link" href="excel-model.html">Model Implementation</a>
+      <a class="nav-link" href="past-backtest.html">Backtest In-Sample</a>
+      <a class="nav-link" href="future-backtest.html">Backtest Out-Sample</a>
+      <a class="nav-link active" href="model-summary.html">Model Summary</a>
+      <a class="nav-link" href="ai-log.html">AI Log</a>
+
       </div>
     </nav>
 
@@ -1234,10 +1235,163 @@ M131: =SQRT(AVERAGE(O2:O128))</pre>
       </div>
     </div>
   </div>
+7. Backtest sheets + fixing errors — what we changed</div>
+
+      <div class="chat-row chat-row--note">
+        <div class="chat-bubble chat-bubble--note">
+          <div class="chat-meta">
+            <span class="chat-speaker">Student Log (What was fixed)</span>
+            <span class="chat-tag">7.1</span>
+          </div>
+          <div class="chat-text">
+            <ul>
+              <li><strong>Date formatting:</strong> MonthEnd_Date displayed as real dates (not Excel serial numbers).</li>
+              <li><strong>#VALUE! cleanup:</strong> fixed formula inputs so Predicted_Z and Predicted_Return remain numeric.</li>
+              <li><strong>Two separate backtests:</strong>
+                <ul class="ai-log-sub-bullets">
+                  <li><strong>Backtest In-Sample:</strong> training window (Jan 2006 – Dec 2019).</li>
+                  <li><strong>Backtest Out-Sample:</strong> validation window (Jan 2020 – latest available).</li>
+                </ul>
+              </li>
+              <li><strong>Error metrics:</strong> added/validated APE, MAPE, MAD, and MSE (computed directly from Actual vs Predicted).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =========================
+         AI LOG — PART 3 (WEBSITE + TABLEAU + EMBEDS)
+         ========================= -->
+    <section class="ai-chat" aria-label="AI log chat timeline">
+
+      <div class="ai-log-divider">8. Website build + Tableau publishing (latest updates)</div>
+
+      <!-- 8.1 PROMPT -->
+      <div class="chat-row chat-row--user">
+        <div class="chat-bubble chat-bubble--user">
+          <div class="chat-meta">
+            <span class="chat-speaker">You (Praveen) (Prompt)</span>
+            <span class="chat-tag">8.1</span>
+          </div>
+          <div class="chat-text">
+            <p>
+              “We finished the Excel model. Now we need to update the website pages.
+              Also, I want to embed Tableau charts for in-sample and out-sample backtests and add analysis containers below them.”
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8.2 RESPONSE -->
+      <div class="chat-row chat-row--ai">
+        <div class="chat-bubble chat-bubble--ai">
+          <div class="chat-meta">
+            <span class="chat-speaker">ChatGPT (Response)</span>
+            <span class="chat-tag">8.2</span>
+          </div>
+          <div class="chat-text">
+            <p><strong>Guidance provided:</strong></p>
+            <ul>
+              <li>Create consistent page structure: container 1 (explain), container 2 (Tableau embed), container 3/4 (analysis + metrics).</li>
+              <li>Use a dual-axis line chart in Tableau (Actual vs Predicted) and publish to Tableau Public.</li>
+              <li>Add interpretive text: explain peaks, regime shifts, and why out-sample error is expected to be higher.</li>
+              <li>Fix embed placement: Tableau embed must sit inside the same hero container card to avoid “floating” outside.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-log-divider">9. Fixing embed limitations (Excel &amp; Google Sheets UI)</div>
+
+      <!-- 9.1 PROMPT -->
+      <div class="chat-row chat-row--user">
+        <div class="chat-bubble chat-bubble--user">
+          <div class="chat-meta">
+            <span class="chat-speaker">You (Praveen) (Prompt)</span>
+            <span class="chat-tag">9.1</span>
+          </div>
+          <div class="chat-text">
+            <p>
+              “In the embedded sheet, I can’t see the formula bar and full UI like Google Sheets.
+              Can you make it show formulas and other tools inside the embed?”
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9.2 RESPONSE -->
+      <div class="chat-row chat-row--ai">
+        <div class="chat-bubble chat-bubble--ai">
+          <div class="chat-meta">
+            <span class="chat-speaker">ChatGPT (Response)</span>
+            <span class="chat-tag">9.2</span>
+          </div>
+          <div class="chat-text">
+            <p><strong>Answer (important constraint):</strong></p>
+            <ul>
+              <li>Google embeds restrict the full UI (formula bar / menus) for security reasons.</li>
+              <li>Best-practice solution: keep embed for viewing + add a “Open Full Spreadsheet (Formula View)” button.</li>
+              <li>This preserves transparency and allows full formula inspection in a new tab.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-log-divider">10. Final website structure changes implemented</div>
+
+      <div class="chat-row chat-row--note">
+        <div class="chat-bubble chat-bubble--note">
+          <div class="chat-meta">
+            <span class="chat-speaker">Student Implementation Summary</span>
+            <span class="chat-tag">10</span>
+          </div>
+          <div class="chat-text">
+            <p><strong>We updated the website to match our final project deliverable:</strong></p>
+            <ul>
+              <li><strong>Renamed navigation labels</strong> for clarity:
+                <ul class="ai-log-sub-bullets">
+                  <li>Methodology → <strong>Model Framework</strong></li>
+                  <li>Excel Model → <strong>Model Implementation</strong></li>
+                  <li>Future Backtest → <strong>Backtest Out-Sample</strong></li>
+                </ul>
+              </li>
+              <li><strong>Backtest In-Sample page</strong> now has:
+                <ul class="ai-log-sub-bullets">
+                  <li>Container 1: training-period explanation</li>
+                  <li>Container 2: Tableau dual-axis chart embed</li>
+                  <li>Container 3: metrics + interpretation (MAPE, MAD, MSE)</li>
+                </ul>
+              </li>
+              <li><strong>Backtest Out-Sample page</strong> now has:
+                <ul class="ai-log-sub-bullets">
+                  <li>Same container structure as In-Sample for consistency</li>
+                  <li>Additional analysis container (container 4) based on Excel metrics</li>
+                </ul>
+              </li>
+              <li><strong>Excel Model page</strong> includes:
+                <ul class="ai-log-sub-bullets">
+                  <li>Embedded workbook view for transparency</li>
+                  <li>Button to open full spreadsheet UI in a new tab</li>
+                </ul>
+              </li>
+              <li><strong>Conditional forecast explanation</strong> added as an extra container:
+                <ul class="ai-log-sub-bullets">
+                  <li>Explains we used fixed/assumed driver values (US10Y nominal, CPI, USD index, GPR, VIX, CB gold)</li>
+                  <li>Shows how the model outputs a “conditional” gold price path under those assumptions</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
 
 </section>
       <div class="floating-nav" aria-label="Page navigation">
-        <a class="floating-prev" href="factors-drivers.html" aria-label="Back to Factors & Drivers">← Factors & Drivers</a>
+        <a class="floating-prev" href="model-summary.html" aria-label="Back to Model Summary">← Model Summary</a>
       </div>
     </section>
  </main>
@@ -1263,5 +1417,4 @@ M131: =SQRT(AVERAGE(O2:O128))</pre>
   <script src="app.js"></script>
 </body>
 </html>
-
 

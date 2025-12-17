@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Model Summary & Key Insights — Gold Forecasting Model</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- ✅ FIX: remove “scroll inside card” everywhere on this page
+       (Later you can move this exact CSS into style.css to apply site-wide) -->
+  <style>
+    /* kill any internal scrolling on hero cards */
+    .hero-card,
+    .hero-card.wide{
+      max-height: none !important;
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    /* if any inner wrappers were given fixed heights/scroll */
+    .hero-meta,
+    .hero-members,
+    .members-list{
+      max-height: none !important;
+      overflow: visible !important;
+    }
+
+    /* prevent accidental “scroll container” behavior */
+    .hero{
+      overflow: visible !important;
+    }
+  </style>
+</head>
+
+<body class="page">
+
+<header class="site-header">
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html"><div class="coin-static"></div></a>
+      <div class="brand-title">Gold Forecasting Model</div>
+    </div>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html">Index</a>
+      <a class="nav-link" href="methodology.html">Model Framework</a>
+      <a class="nav-link" href="excel-model.html">Model Implementation</a>
+      <a class="nav-link" href="past-backtest.html">Backtest In-Sample</a>
+      <a class="nav-link" href="future-backtest.html">Backtest Out-Sample</a>
+      <a class="nav-link active" href="model-summary.html">Model Summary</a>
+      <a class="nav-link" href="ai-log.html">AI Log</a>
+    </div>
+  </nav>
+    <div class="progress-wrap" aria-hidden="true">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
+</header>
+
+<main class="main">
+
+<section class="hero">
+  <div class="hero-bg"
+       style='background-image: var(--hero-overlay), url("images/hero.png");'></div>
+
+  <article class="hero-card wide">
+
+    <h1 class="hero-title">Model Summary & Key Insights</h1>
+    <p class="hero-subtitle">
+      This page synthesizes the objectives, results, interpretation, and limitations of the gold forecasting model,
+      and connects the analysis back to Supply Chain Management decision-making.
+    </p>
+
+    <div class="hero-meta" style="text-align:left; max-width:900px;">
+
+      <h3>1. Purpose of the Model</h3>
+      <p>
+        The primary goal of this model is to explain and forecast monthly gold price levels using transparent,
+        economically interpretable macro-financial drivers. The model prioritizes clarity and robustness over
+        short-term trading accuracy.
+      </p>
+
+      <h3>2. What the Model Captures Well</h3>
+      <p>
+        The model successfully captures the directional sensitivity of gold prices to interest rates, inflation,
+        U.S. dollar strength, geopolitical risk, and central bank demand. In stable macro regimes, particularly
+        before 2020, predicted price paths closely track observed gold price movements.
+      </p>
+
+      <h3>3. Interpretation of Backtest Results</h3>
+      <p>
+        In-sample backtests demonstrate coherent alignment between predicted and actual gold prices.
+        Out-of-sample performance remains directionally informative, though absolute price errors widen during
+        periods of macroeconomic regime change.
+      </p>
+
+      <h3>4. Why Errors Increase After 2020</h3>
+      <p>
+        Post-2020 divergence reflects structural shifts rather than model failure. Extraordinary monetary stimulus,
+        elevated inflation, aggressive central bank gold accumulation, and heightened geopolitical risk created
+        nonlinear dynamics that exceed the assumptions of a monthly linear regression framework.
+      </p>
+
+      <h3>5. Relevance to Supply Chain Management</h3>
+      <p>
+        For supply chain and operations managers, gold price forecasts inform procurement timing, hedging strategy,
+        financial risk exposure, and policy-sensitive sourcing decisions. Understanding macro drivers improves
+        planning under uncertainty rather than attempting precise short-term price prediction.
+      </p>
+
+      <h3>6. Model Limitations</h3>
+      <p>
+        The model is constrained by its linear structure, monthly frequency, and reliance on publicly available
+        macroeconomic indicators. These limitations are intentional trade-offs to preserve transparency,
+        reproducibility, and interpretability.
+      </p>
+
+      <h3>7. Transition to AI Log</h3>
+      <p>
+        The following AI Log documents how generative AI was used as an analytical assistant throughout model
+        development. All modeling decisions, variable selection, interpretation, and validation were guided by
+        human judgment, with AI serving as a support tool rather than an automated decision-maker.
+      </p>
+
+    </div>
+
+  </article>
+</section>
+
+<div class="floating-nav">
+  <a class="floating-prev" href="future-backtest.html">← Backtest Out-Sample</a>
+  <a class="floating-next" href="ai-log.html">AI Log →</a>
+</div>
+
+</main>
+
+<section class="footer-band">
+  <footer class="site-footer">
+    <div class="footer-left">
+      <img class="footer-nyit" src="images/Nyit.png" alt="NYIT Logo" />
+    </div>
+    <div class="footer-center">
+      © 2025 Gold Forecasting Model • NYIT • Supply Chain Management
+    </div>
+    <div class="footer-right">
+      Contact:
+      <a href="mailto:prathe01@nyit.edu">prathe01@nyit.edu</a>
+    </div>
+  </footer>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>

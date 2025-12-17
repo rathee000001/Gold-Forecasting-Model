@@ -3,8 +3,32 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Past Backtest — Gold Forecasting Model</title>
+  <title>Backtest In-sample — Gold Forecasting Model</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- ✅ FIX: remove “scroll inside card” everywhere on this page
+       (Later you can move this exact CSS into style.css to apply site-wide) -->
+  <style>
+    /* kill any internal scrolling on hero cards */
+    .hero-card,
+    .hero-card.wide{
+      max-height: none !important;
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    /* if any inner wrappers were given fixed heights/scroll */
+    .hero-meta,
+    .hero-members,
+    .members-list{
+      max-height: none !important;
+      overflow: visible !important;
+    }
+
+    /* prevent accidental “scroll container” behavior */
+    .hero{
+      overflow: visible !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -18,13 +42,14 @@
       </div>
 
       <div class="nav-links">
-        <a class="nav-link" href="index.html">Index</a>
-        <a class="nav-link" href="methodology.html">Methodology</a>
-        <a class="nav-link" href="excel-model.html">Excel Model</a>
-        <a class="nav-link active" href="past-backtest.html">Past Backtest</a>
-        <a class="nav-link" href="future-backtest.html">Future Backtest</a>
-        <a class="nav-link" href="factors-drivers.html">Factors &amp; Drivers</a>
-        <a class="nav-link" href="ai-log.html">Log</a>
+      <a class="nav-link" href="index.html">Index</a>
+      <a class="nav-link" href="methodology.html">Model Framework</a>
+      <a class="nav-link" href="excel-model.html">Model Implementation</a>
+      <a class="nav-link" href="past-backtest.html">Backtest In-Sample</a>
+      <a class="nav-link" href="future-backtest.html">Backtest Out-Sample</a>
+      <a class="nav-link active" href="model-summary.html">Model Summary</a>
+      <a class="nav-link" href="ai-log.html">AI Log</a>
+
       </div>
     </nav>
 
@@ -36,46 +61,29 @@
   <main class="main">
 
     <!-- =========================
-         CONTAINER 1 — EXPLANATION + FORMULAS
+         CONTAINER 1 — IN-SAMPLE EXPLANATION (2006–2019)
          ========================= -->
-    <section class="hero" aria-label="Past Backtest Explanation">
-           <!-- ✅ background image = images/Sheet Forecast_Backtest_10Y.webp -->
-<div class="hero-bg" aria-hidden="true"
-     style='background-image: var(--hero-overlay), url("images/Sheet%20Forecast_Backtest_10Y.webp");'></div>
+    <section class="hero" aria-label="Backtest In-sample Explanation">
+      <div class="hero-bg" aria-hidden="true"
+           style='background-image: var(--hero-overlay), url("images/Sheet%20Forecast_Backtest_10Y.webp");'></div>
 
       <article class="hero-card wide">
-        <h1 class="hero-title">Past Backtest</h1>
+        <h1 class="hero-title">Backtest In-sample</h1>
 
         <p class="hero-subtitle">
-          This backtest compares the model’s predicted gold return (and implied price path) against actual historical
-          gold behavior. The goal is to validate directionality and turning points for supply chain planning—rather
-          than perfect price matching.
+          This section reports the in-sample performance of the regression model during the training period.
+          In-sample backtesting verifies that the model reproduces the historical relationships it was trained on
+          before we evaluate performance on unseen data.
         </p>
 
         <div class="hero-meta" style="text-align:left; max-width: 920px;">
-          <p><strong>Core Regression (Z-score):</strong></p>
-
-          <div class="formula-box">
-            <div class="formula-text">
-              Gold_Return_Z = β₀
-              <br />+ β₁ · US_Import_Return_Z
-              <br />+ β₂ · USD_Return_Z
-              <br />+ β₃ · Real_Rate_Z
-              <br />+ β₄ · GPR_Index_Z
-              <br />+ β₅ · CB_BRICS_Share_Change_Z
-            </div>
-          </div>
-
-          <p style="margin-top: 1rem;"><strong>Convert predicted return to a price path:</strong></p>
-          <div class="formula-box">
-            <div class="formula-text">
-              Predicted_Priceₜ = Predicted_Priceₜ₋₁ × (1 + Predicted_Returnₜ)
-            </div>
-          </div>
-
+          <p><strong>Training (In-sample) period:</strong> <span style="font-weight:800;">January 2006 – December 2019</span></p>
+          <p><strong>What this test answers:</strong> “Does the model reproduce the historical macro–gold relationship within the training window?”</p>
+          <p><strong>What it does NOT prove:</strong> Future accuracy. That is evaluated in the out-of-sample test (2020–2025).</p>
+          <p style="margin-top: 1rem;"><strong>Comparison used:</strong> Actual Gold Price (USD/oz) vs Model-implied price path (month-end aligned).</p>
+        </div>
       </article>
 
-      <!-- ONE fixed navigation row (no stacking) -->
       <div class="floating-nav" aria-label="Page navigation">
         <a class="floating-prev" href="excel-model.html" aria-label="Back to Excel Model">← Excel Model</a>
         <a class="floating-next" href="future-backtest.html" aria-label="Next to Future Backtest">Future Backtest →</a>
@@ -83,54 +91,61 @@
     </section>
 
     <!-- =========================
-         CONTAINER 2 — TABLEAU (LIVE)
+         CONTAINER 2 — TABLEAU GRAPH (IN CONTAINER)
          ========================= -->
-    <section class="hero" aria-label="Tableau Past Backtest (Live)">
-           <!-- ✅ background image = images/Tablue.png -->
-<div class="hero-bg" aria-hidden="true"
-     style='background-image: var(--hero-overlay), url("images/Tablue.png");'></div>
+    <section class="hero" aria-label="Tableau Backtest In-sample (Live)">
+      <div class="hero-bg" aria-hidden="true"
+           style='background-image: var(--hero-overlay), url("images/Tablue.png");'></div>
 
       <article class="hero-card wide">
         <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">
-          Tableau — Past Backtest (Live)
+          Tableau — Actual vs Predicted Gold Price (In-sample: 2006–2019)
         </h2>
-        <p class="hero-subtitle">Live dashboard view for the Past Backtest only.</p>
 
-        <!-- ✅ CLEAN: keep ONLY the Tableau embed block (no duplicates) -->
-        <div class="tableauPlaceholder" id="vizPastBacktest" style="position: relative;">
-          <noscript>
-            <a href="#">
-              <img alt="Backtest – Past"
-                   src="https://public.tableau.com/static/images/Go/GoldForecastingModel/BacktestPast/1_rss.png"
-                   style="border: none;" />
-            </a>
-          </noscript>
+        <p class="hero-subtitle">
+          This chart compares <strong>Actual</strong> and <strong>Model-Predicted</strong> gold price levels over the training window.
+          It is used to check trend alignment and turning points in-sample.
+        </p>
 
-          <object class="tableauViz" style="display:none;">
-            <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
-            <param name="embed_code_version" value="3" />
-            <param name="site_root" value="" />
-            <param name="name" value="GoldForecastingModel/BacktestPast" />
-            <param name="tabs" value="no" />
-            <param name="toolbar" value="yes" />
-            <param name="static_image" value="https://public.tableau.com/static/images/Go/GoldForecastingModel/BacktestPast/1.png" />
-            <param name="animate_transition" value="yes" />
-            <param name="display_static_image" value="yes" />
-            <param name="display_spinner" value="yes" />
-            <param name="display_overlay" value="yes" />
-            <param name="display_count" value="yes" />
-            <param name="language" value="en-US" />
-            <param name="filter" value="publish=yes" />
-          </object>
+        <!-- ✅ Tableau embed INSIDE container -->
+        <div class="tableau-wrap" style="margin-top: 0.9rem; border-radius: 18px; overflow: hidden; border: 1px solid rgba(148,163,184,0.28);">
+          <div class="tableauPlaceholder" id="viz1765958473820" style="position: relative;">
+            <noscript>
+              <a href="#">
+                <img alt="Actual vs Predicted Gold Price (In-Sample: 2006–2019)"
+                     src="https://public.tableau.com/static/images/Ba/Backtest_InSample/Sheet1/1_rss.png"
+                     style="border: none; width:100%;" />
+              </a>
+            </noscript>
+
+            <object class="tableauViz" style="display:none;">
+              <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
+              <param name="embed_code_version" value="3" />
+              <param name="site_root" value="" />
+              <param name="name" value="Backtest_InSample/Sheet1" />
+              <param name="tabs" value="no" />
+              <param name="toolbar" value="yes" />
+              <param name="static_image" value="https://public.tableau.com/static/images/Ba/Backtest_InSample/Sheet1/1.png" />
+              <param name="animate_transition" value="yes" />
+              <param name="display_static_image" value="yes" />
+              <param name="display_spinner" value="yes" />
+              <param name="display_overlay" value="yes" />
+              <param name="display_count" value="yes" />
+              <param name="language" value="en-US" />
+              <param name="filter" value="publish=yes" />
+            </object>
+          </div>
         </div>
 
-        <script src="https://public.tableau.com/javascripts/api/viz_v1.js"></script>
-        <script>
+        <script type="text/javascript">
           (function () {
-            const divElement = document.getElementById("vizPastBacktest");
-            const vizElement = divElement.getElementsByTagName("object")[0];
+            var divElement = document.getElementById("viz1765958473820");
+            var vizElement = divElement.getElementsByTagName("object")[0];
             vizElement.style.width = "100%";
             vizElement.style.height = (divElement.offsetWidth * 0.75) + "px";
+            var scriptElement = document.createElement("script");
+            scriptElement.src = "https://public.tableau.com/javascripts/api/viz_v1.js";
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);
           })();
         </script>
       </article>
@@ -141,97 +156,127 @@
       </div>
     </section>
 
-  <!-- =========================
-     CONTAINER 3 — ANALYSIS (Past Backtest)
-     ========================= -->
-<section class="hero" aria-label="Past Backtest Analysis">
-  <!-- ✅ background image = images/Analysis.jpg -->
-<div class="hero-bg" aria-hidden="true"
-     style='background-image: var(--hero-overlay), url("images/Analysis.jpg");'></div>
+    <!-- =========================
+         CONTAINER 3 — PEAKS / REGIMES EXPLANATION (BASED ON YOUR CHART)
+         ========================= -->
+    <section class="hero" aria-label="In-sample Peaks and Regimes">
+      <div class="hero-bg" aria-hidden="true"
+           style='background-image: var(--hero-overlay), url("images/Analysis.jpg");'></div>
 
-  <article class="hero-card wide">
-    <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">
-      Analysis &amp; Interpretation
-    </h2>
+      <article class="hero-card wide">
+        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">
+          What the Chart Shows (Peaks, Regimes, and Gaps)
+        </h2>
 
-    <div class="hero-meta" style="text-align:left; max-width: 920px; margin-top: 0.8rem;">
-      <p style="margin:0 0 0.8rem;">
-        <strong>Backtest accuracy (Price level):</strong> Metrics computed from <em>Gold_Price_USD</em> vs <em>Model_Price_Path</em>
-        on the <em>Backtest_Past</em> sheet (excluding the first anchor month).
-      </p>
-
-      <!-- Symmetric metrics row -->
-      <div style="
-        display:grid;
-        grid-template-columns: repeat(3, minmax(180px, 1fr));
-        gap: 14px;
-        align-items: stretch;
-        margin: 0.6rem 0 0.9rem;
-      ">
-        <div style="
-          background: rgba(255,255,255,0.60);
-          border: 1px solid rgba(148,163,184,0.28);
-          border-radius: 16px;
-          padding: 14px 14px;
-          text-align:center;
-          box-shadow: 0 10px 24px rgba(15,23,42,0.10);
-        ">
-          <div style="font-weight:800; font-size:1.05rem; color: var(--ink-900);">MAD</div>
-          <div style="font-size:0.92rem; color: var(--ink-700); margin-top: 4px;">avg(|A − F|)</div>
-          <div style="font-weight:900; font-size:1.35rem; margin-top: 10px; color: var(--ink-900);">
-            212.04
-          </div>
-        </div>
-
-        <div style="
-          background: rgba(255,255,255,0.60);
-          border: 1px solid rgba(148,163,184,0.28);
-          border-radius: 16px;
-          padding: 14px 14px;
-          text-align:center;
-          box-shadow: 0 10px 24px rgba(15,23,42,0.10);
-        ">
-          <div style="font-weight:800; font-size:1.05rem; color: var(--ink-900);">MSE</div>
-          <div style="font-size:0.92rem; color: var(--ink-700); margin-top: 4px;">avg((A − F)²)</div>
-          <div style="font-weight:900; font-size:1.35rem; margin-top: 10px; color: var(--ink-900);">
-            73,458.44
-          </div>
-        </div>
-
-        <div style="
-          background: rgba(255,255,255,0.60);
-          border: 1px solid rgba(148,163,184,0.28);
-          border-radius: 16px;
-          padding: 14px 14px;
-          text-align:center;
-          box-shadow: 0 10px 24px rgba(15,23,42,0.10);
-        ">
-          <div style="font-weight:800; font-size:1.05rem; color: var(--ink-900);">MAPE</div>
-          <div style="font-size:0.92rem; color: var(--ink-700); margin-top: 4px;">avg(|A − F|/A) × 100%</div>
-          <div style="font-weight:900; font-size:1.35rem; margin-top: 10px; color: var(--ink-900);">
-            15.39%
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-top: 0.4rem; color: var(--ink-700); line-height: 1.55;">
-        <p style="margin:0 0 0.55rem;">
-          <strong>Interpretation:</strong> A MAPE of <strong>15.39%</strong> indicates the model’s implied historical price path
-          deviates from actual prices by ~15% on average. This is consistent with a factor-based linear model that can track
-          regimes/direction better than sudden shock magnitudes.
+        <p class="hero-subtitle">
+          The purpose of the in-sample chart is to confirm that the model learns the main gold price regimes within 2006–2019.
+          The key evaluation is whether the model follows the broad rise, peak period, correction, and later stabilization.
         </p>
-        <p style="margin:0;">
-          <strong>Decision use:</strong> Use the backtest mainly to judge <em>direction, timing, and regime shifts</em>
-          for procurement and hedging decisions—expect larger gaps during structural breaks (rate shocks, USD jumps, geopolitical events).
-        </p>
-      </div>
-    </div>
-  </article>
-</section>
+
+        <div class="hero-meta" style="text-align:left; max-width: 960px;">
+          <ul class="members-list">
+            <li><strong>2006–2008 gradual rise:</strong> Both series trend upward, indicating the model captures the early cycle and momentum in gold pricing.</li>
+            <li><strong>2008–2009 crisis transition:</strong> This region often shows short-run divergence because shocks move faster than monthly macro variables.</li>
+            <li><strong>2010–2012 peak regime:</strong> The chart reaches its highest zone; the model broadly follows the peak period, which is critical for validating fit.</li>
+            <li><strong>2013–2015 correction:</strong> Actual prices decline and stabilize lower; the model should also move downward (a sign it learned the regime shift).</li>
+            <li><strong>2016–2019 stabilization + renewed rise:</strong> The later part shows stabilization and recovery; the model’s ability to re-accelerate indicates sensitivity to changing macro conditions.</li>
+          </ul>
+
+          <p style="margin-top: 0.85rem; color: var(--ink-700); line-height: 1.55;">
+            <strong>Note on spikes/gaps:</strong> Any sharp spikes in the model line usually indicate periods where one explanatory variable moved unusually fast
+            (or where the regression amplifies a short-term move). This is why we report accuracy metrics (MAD/MSE/MAPE) separately below.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- =========================
+         CONTAINER 4 — METRICS (YOUR EXISTING CONTAINER)
+         ========================= -->
+    <section class="hero" aria-label="Backtest In-sample Metrics">
+      <div class="hero-bg" aria-hidden="true"
+           style='background-image: var(--hero-overlay), url("images/Analysis.jpg");'></div>
+
+      <article class="hero-card wide">
+        <h2 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.0rem);">
+          Analysis &amp; Interpretation (In-sample: 2006–2019)
+        </h2>
+
+        <div class="hero-meta" style="text-align:left; max-width: 920px; margin-top: 0.8rem;">
+          <p style="margin:0 0 0.8rem;">
+            <strong>Backtest accuracy (Price level):</strong>
+            Metrics computed from <em>Actual_Gold_Price</em> vs <em>Predicted_Gold_Price</em>
+            for the training sample <strong>Jan 2006 – Dec 2019</strong> (month-end aligned).
+          </p>
+
+          <div style="
+            display:grid;
+            grid-template-columns: repeat(3, minmax(180px, 1fr));
+            gap: 14px;
+            align-items: stretch;
+            margin: 0.6rem 0 0.9rem;
+          ">
+            <div style="
+              background: rgba(255,255,255,0.60);
+              border: 1px solid rgba(148,163,184,0.28);
+              border-radius: 16px;
+              padding: 14px 14px;
+              text-align:center;
+              box-shadow: 0 10px 24px rgba(15,23,42,0.10);
+            ">
+              <div style="font-weight:800; font-size:1.05rem; color: var(--ink-900);">MAD</div>
+              <div style="font-size:0.92rem; color: var(--ink-700); margin-top: 4px;">avg(|A − F|)</div>
+              <div style="font-weight:900; font-size:1.35rem; margin-top: 10px; color: var(--ink-900);">106.72</div>
+            </div>
+
+            <div style="
+              background: rgba(255,255,255,0.60);
+              border: 1px solid rgba(148,163,184,0.28);
+              border-radius: 16px;
+              padding: 14px 14px;
+              text-align:center;
+              box-shadow: 0 10px 24px rgba(15,23,42,0.10);
+            ">
+              <div style="font-weight:800; font-size:1.05rem; color: var(--ink-900);">MSE</div>
+              <div style="font-size:0.92rem; color: var(--ink-700); margin-top: 4px;">avg((A − F)²)</div>
+              <div style="font-weight:900; font-size:1.35rem; margin-top: 10px; color: var(--ink-900);">360.65</div>
+            </div>
+
+            <div style="
+              background: rgba(255,255,255,0.60);
+              border: 1px solid rgba(148,163,184,0.28);
+              border-radius: 16px;
+              padding: 14px 14px;
+              text-align:center;
+              box-shadow: 0 10px 24px rgba(15,23,42,0.10);
+            ">
+              <div style="font-weight:800; font-size:1.05rem; color: var(--ink-900);">MAPE</div>
+              <div style="font-size:0.92rem; color: var(--ink-700); margin-top: 4px;">avg(|A − F|/A) × 100%</div>
+              <div style="font-weight:900; font-size:1.35rem; margin-top: 10px; color: var(--ink-900);">9.22%</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 0.4rem; color: var(--ink-700); line-height: 1.55;">
+            <p style="margin:0 0 0.55rem;">
+              <strong>Interpretation:</strong>
+              A <strong>MAPE of 9.22%</strong> means that, within the training window (2006–2019),
+              the model’s predicted gold price level deviates from actual month-end prices by ~9% on average.
+              This indicates the model captures the historical macro relationship well in-sample.
+            </p>
+
+            <p style="margin:0;">
+              <strong>Decision use:</strong>
+              Treat the in-sample backtest as a <em>fit and calibration check</em>.
+              The real test of forecasting credibility is the out-of-sample period (2020–2025),
+              where structural breaks can increase error.
+            </p>
+          </div>
+        </div>
+      </article>
 
       <div class="floating-nav" aria-label="Page navigation">
-        <a class="floating-prev" href="excel-model.html" aria-label="Back to Excel Model">← Excel Model</a>
-        <a class="floating-next" href="future-backtest.html" aria-label="Next to Future Backtest">Future Backtest →</a>
+        <a class="floating-prev" href="excel-model.html" aria-label="Back to Excel Model">← Model Implementation</a>
+        <a class="floating-next" href="future-backtest.html" aria-label="Next to Future Backtest">Backtest Out-Sample →</a>
       </div>
     </section>
 
@@ -241,7 +286,7 @@
   <section class="footer-band" aria-label="Footer band">
     <footer class="site-footer">
       <div class="footer-left">
-        <img class="footer-nyit" src="images/Nyit.png" alt="NYIT Logo" />
+        <img class="footer-nyit" src="imagesNyit.png" alt="NYIT Logo" />
       </div>
 
       <div class="footer-center">
@@ -255,21 +300,6 @@
     </footer>
   </section>
 
-  <!-- Fill metric values -->
-  <script>
-    // Update these values if you recompute from a different range/series
-    const METRICS = {
-      mad: 350.36,
-      mse: 165950.88,
-      mape: 26.86
-    };
-
-    document.getElementById("madValue").textContent = METRICS.mad.toFixed(2);
-    document.getElementById("mseValue").textContent = METRICS.mse.toFixed(2);
-    document.getElementById("mapeValue").textContent = METRICS.mape.toFixed(2) + "%";
-  </script>
-
   <script src="app.js"></script>
 </body>
 </html>
-

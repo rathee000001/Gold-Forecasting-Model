@@ -728,7 +728,7 @@ body.index-page .floating-next{
   .chat-bubble--ai::after{ bottom: 10px; }
 }
 /* =========================================================
-   AI LOG — Forecasting themed background 
+   AI LOG — Forecasting themed background (ONLY on AI Log page)
    Add class="ai-log-page" on <body>
    ========================================================= */
 
@@ -788,5 +788,10 @@ body.ai-log-page .footer-band{
 body.ai-log-page .ai-chat{
   padding-top: 1.5rem;
   padding-bottom: 4rem;
+}
+.hero-card a{
+  color: var(--blue-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
